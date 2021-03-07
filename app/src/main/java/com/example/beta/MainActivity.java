@@ -2,8 +2,10 @@ package com.example.beta;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,6 +20,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+
+    }
+
+    public void sitter(View view) {
+        Intent si = new Intent(MainActivity.this, BRegister.class);
+        startActivity(si);
+    }
+
+    public void parent(View view) {
+        Intent si = new Intent(MainActivity.this, PRegister.class);
+        startActivity(si);
     }
 }
