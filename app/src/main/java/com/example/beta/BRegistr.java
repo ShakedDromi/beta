@@ -18,52 +18,52 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class PRegister extends AppCompatActivity {
+public class BRegistr extends AppCompatActivity {
 
-    String PMail="", PPass="", Puid="";
-    EditText Pmail,Ppass;
-    private FirebaseAuth mPAuth;
-    Boolean PstayConnect, PfirstRun=true,PisUID=false, Pregistered=false;
-    public static FirebaseDatabase PFBDB = FirebaseDatabase.getInstance();
-    public static DatabaseReference refUsers= PFBDB.getReference("UserP");
+    String BMail="", BPass="", Buid="";
+    EditText Bmail,Bpass;
+    private FirebaseAuth mAuth;
+    Boolean stayConnect, firstRun=true,isUID=false, registered=false;
+    public static FirebaseDatabase FBDB = FirebaseDatabase.getInstance();
+    public static DatabaseReference refUsers= FBDB.getReference("UserB");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_p_register);
+        setContentView(R.layout.activity_b_registr);
 
         /*
         give each UI variable a value
          */
-        Pmail=(EditText)findViewById(R.id.Bmail);
-        Ppass=(EditText)findViewById(R.id.Bpass);
-        mPAuth = FirebaseAuth.getInstance();
+        Bmail=(EditText)findViewById(R.id.Bmail);
+        Bpass=(EditText)findViewById(R.id.Bpass);
+        mAuth = FirebaseAuth.getInstance();
 
         SharedPreferences settings=getSharedPreferences("PREFS_NAME",MODE_PRIVATE);
-        PfirstRun=settings.getBoolean("firstRun",true);
-        PstayConnect = false;
+        firstRun=settings.getBoolean("firstRun",true);
+        stayConnect = false;
 
         /**
          * this method checks if this is the first run on the user's device
          * if so, it sends the user strait to the registration activity(main activity)
          * if not, it sends him to the location activity
          */
-        if (PfirstRun) {
-            PisUID=false;
+        if (firstRun) {
+            isUID=false;
             onVerificationStateChanged();
             regOption();
         }
         else {
-            PisUID=true;
-            Pregistered = true;
+            isUID=true;
+            registered = true;
             onVerificationStateChanged();
-            Intent si = new Intent(PRegister.this, PDetails.class);
+            Intent si = new Intent(BRegistr.this, BDetails.class);
             startActivity(si);        }
     }
 
     private void regOption() {
-        PisUID=false;
-        Pregistered=false;
+        isUID=false;
+        registered=false;
     }
 
     private void onVerificationStateChanged() {
@@ -73,7 +73,7 @@ public class PRegister extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mPAuth.getCurrentUser();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
     }
 
@@ -86,37 +86,37 @@ public class PRegister extends AppCompatActivity {
      * @param view
      */
     public void register(View view) {
-        PMail=Pmail.getText().toString();
-        PPass=Ppass.getText().toString();
-        if (PMail.isEmpty()||PPass.isEmpty()){
+        BMail=Bmail.getText().toString();
+        BPass=Bpass.getText().toString();
+        if (BMail.isEmpty()||BPass.isEmpty()){
             Toast.makeText(this, "please fill all the necessary details", Toast.LENGTH_SHORT).show();
         }
         else {
-            mPAuth.createUserWithEmailAndPassword(PMail, PPass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            mAuth.createUserWithEmailAndPassword(BMail, BPass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(PRegister.this, "registration completed",
+                        Toast.makeText(BRegistr.this, "registration completed",
                                 Toast.LENGTH_SHORT).show();
 
                         // Sign in success, update UI with the signed-in user's information
                         //   Log.d(TAG, "createUserWithEmail:success");
-                        FirebaseUser user = mPAuth.getCurrentUser();
-                        Puid = user.getUid();
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        Buid = user.getUid();
                         updateUI(user);
                         String image="empty";
                         //  userdb = new User
-                        if (!PisUID) {
-                            UserB userdb=new UserB("",PMail,"", "", "", "", Puid, PPass);
+                        if (!isUID) {
+                            UserB userdb=new UserB("",BMail,"", "", "", "", Buid, BPass);
                             //   UserB userdb=new UserB(Bmail, Bpass, Buid, image);
-                            refUsers.child(Puid).setValue(userdb);
+                            refUsers.child(Buid).setValue(userdb);
                         }
-                        Intent si = new Intent(PRegister.this, BDetails.class);
+                        Intent si = new Intent(BRegistr.this, BDetails.class);
                         startActivity(si);
                     } else {
                         // If sign in fails, display a message to the user.
                         //    Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                        Toast.makeText(PRegister.this, "Authentication failed.",
+                        Toast.makeText(BRegistr.this, "Authentication failed.",
                                 Toast.LENGTH_SHORT).show();
                         updateUI(null);
                     }

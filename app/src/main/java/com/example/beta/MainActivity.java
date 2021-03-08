@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sitter(View view) {
-        Intent si = new Intent(MainActivity.this, BRegister.class);
+        Intent si = new Intent(MainActivity.this, BRegistr.class);
         startActivity(si);
     }
 
@@ -32,4 +32,6 @@ public class MainActivity extends AppCompatActivity {
         Intent si = new Intent(MainActivity.this, PRegister.class);
         startActivity(si);
     }
+
+
 }
