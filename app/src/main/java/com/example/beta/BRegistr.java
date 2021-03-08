@@ -25,7 +25,7 @@ public class BRegistr extends AppCompatActivity {
     private FirebaseAuth mAuth;
     Boolean stayConnect, firstRun=true,isUID=false, registered=false;
     public static FirebaseDatabase FBDB = FirebaseDatabase.getInstance();
-    public static DatabaseReference refUsers= FBDB.getReference("UserB");
+    public static DatabaseReference refUserB= FBDB.getReference("UserB");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,8 +108,7 @@ public class BRegistr extends AppCompatActivity {
                         //  userdb = new User
                         if (!isUID) {
                             UserB userdb=new UserB("",BMail,"", "", "", "", Buid, BPass);
-                            //   UserB userdb=new UserB(Bmail, Bpass, Buid, image);
-                            refUsers.child(Buid).setValue(userdb);
+                            refUserB.child(Buid).setValue(userdb);
                         }
                         Intent si = new Intent(BRegistr.this, BDetails.class);
                         startActivity(si);

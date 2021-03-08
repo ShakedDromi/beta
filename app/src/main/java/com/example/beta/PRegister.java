@@ -25,7 +25,7 @@ public class PRegister extends AppCompatActivity {
     private FirebaseAuth mPAuth;
     Boolean PstayConnect, PfirstRun=true,PisUID=false, Pregistered=false;
     public static FirebaseDatabase PFBDB = FirebaseDatabase.getInstance();
-    public static DatabaseReference refUsers= PFBDB.getReference("UserP");
+    public static DatabaseReference refUserP= PFBDB.getReference("UserP");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +35,8 @@ public class PRegister extends AppCompatActivity {
         /*
         give each UI variable a value
          */
-        Pmail=(EditText)findViewById(R.id.Bmail);
-        Ppass=(EditText)findViewById(R.id.Bpass);
+        Pmail=(EditText)findViewById(R.id.Pmail);
+        Ppass=(EditText)findViewById(R.id.Ppass);
         mPAuth = FirebaseAuth.getInstance();
 
         SharedPreferences settings=getSharedPreferences("PREFS_NAME",MODE_PRIVATE);
@@ -107,11 +107,10 @@ public class PRegister extends AppCompatActivity {
                         String image="empty";
                         //  userdb = new User
                         if (!PisUID) {
-                            UserB userdb=new UserB("",PMail,"", "", "", "", Puid, PPass);
-                            //   UserB userdb=new UserB(Bmail, Bpass, Buid, image);
-                            refUsers.child(Puid).setValue(userdb);
+                            UserP userPdb=new UserP("",PMail,"", "", "", "", Puid, PPass);
+                            refUserP.child(Puid).setValue(userPdb);
                         }
-                        Intent si = new Intent(PRegister.this, BDetails.class);
+                        Intent si = new Intent(PRegister.this, PDetails.class);
                         startActivity(si);
                     } else {
                         // If sign in fails, display a message to the user.
