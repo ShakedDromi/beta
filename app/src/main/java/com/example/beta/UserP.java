@@ -44,7 +44,7 @@ public class UserP {
     public void setPpass(String phNumber){this.Ppass=Ppass;}
 
     public String getPmail(){return Pmail;}
-    public void setPmail(String Puid){this.Puid=Pmail;}
+    public void setPmail(String Puid){this.Pmail=Pmail;}
 
     public String getPaddress() {
         return Paddress;

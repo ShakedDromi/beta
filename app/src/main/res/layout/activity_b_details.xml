@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:gravity="center"
-    tools:context=".BRegister">
+    tools:context=".BDetails">
 
     <Space
         android:layout_width="0dp"
@@ -40,7 +40,7 @@
             android:layout_weight="3"/>
 
         <EditText
-            android:id="@+id/etName"
+            android:id="@+id/etBName"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:hint="name"
@@ -59,7 +59,7 @@
             android:layout_weight="3"/>
 
         <EditText
-            android:id="@+id/etAddress"
+            android:id="@+id/etBAdd"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:hint="address"
@@ -96,7 +96,7 @@
             android:layout_weight="3"/>
 
         <EditText
-            android:id="@+id/etDscrptn"
+            android:id="@+id/etBDes"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:hint="description"

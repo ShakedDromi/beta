@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:gravity="center"
-    tools:context=".PRegister">
+    tools:context=".PDetails">
 
     <Space
         android:layout_width="0dp"
@@ -22,14 +22,14 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="7.5"/>
+            android:layout_weight="6"/>
 
         <TextView
             android:id="@+id/tvTitl"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:autoSizeTextType="uniform"
-            android:text="connection"
+            android:text="fill in your details"
             android:textSize="30dp"
             android:textStyle="bold"
             android:layout_weight="10" />
@@ -45,44 +45,66 @@
             android:layout_height="0dp"
             android:hint="name"
             android:inputType="textPersonName"
-            android:layout_weight="10" />
+            android:layout_weight="7" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"/>
 
-        <EditText
-            android:id="@+id/etphNum"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="phone number"
-            android:inputType="phone"
-            android:layout_weight="10"/>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"/>
 
         <EditText
-            android:id="@+id/etAdd"
+            android:id="@+id/etPAdd"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:hint="address"
             android:inputType="textPersonName"
-            android:layout_weight="10"/>
+            android:layout_weight="7"/>
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"/>
 
-        <Spinner
-            android:id="@+id/spKNum"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="10"/>
+            android:orientation="horizontal"
+            android:layout_weight="15">
+
+            <Button
+                android:id="@+id/btnAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:onClick="AddKNum"
+                android:text="add+"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"/>
+
+            <ListView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="70"/>
+
+        </LinearLayout>
+
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"/>
+
+        <EditText
+            android:id="@+id/etPDes"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:hint="description"
+            android:inputType="textPersonName"
+            android:layout_weight="14"/>
 
         <Space
             android:layout_width="match_parent"
@@ -94,25 +116,12 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:srcCompat="@android:drawable/ic_menu_slideshow"
-            android:layout_weight="10"/>
+            android:layout_weight="7"/>
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"/>
-
-        <EditText
-            android:id="@+id/etDes"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:hint="description"
-            android:inputType="textPersonName"
-            android:layout_weight="10"/>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="7.5"/>
 
         <CheckBox
             android:id="@+id/checkBoxParent"
@@ -128,17 +137,13 @@
             android:orientation="horizontal"
             android:layout_weight="10">
 
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="10"/>
 
             <Button
                 android:id="@+id/btnC"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="35"
-                android:onClick="regOrLog"
+                android:layout_weight="45"
+                android:onClick="connect"
                 android:text="connect"/>
 
             <Space
@@ -150,20 +155,16 @@
                 android:id="@+id/tvRegisterP"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="35"
+                android:layout_weight="45"
                 android:textColor="#000000"/>
 
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="10"/>
 
         </LinearLayout>
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="7.5"/>
+            android:layout_weight="6"/>
 
     </LinearLayout>
 

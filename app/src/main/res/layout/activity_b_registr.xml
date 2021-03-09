@@ -68,18 +68,56 @@
             android:layout_height="0dp"
             android:layout_weight="4" />
 
-        <Button
-            android:id="@+id/entr"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="6"
-            android:onClick="register"
-            android:text="register" />
+            android:orientation="horizontal"
+            android:layout_weight="10">
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"/>
+
+            <Button
+                android:id="@+id/btnB"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="35"
+                android:onClick="logOrReg"
+                android:text="connect"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="10"/>
+
+            <TextView
+                android:id="@+id/tvRegister"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="35"
+                android:textColor="#000000"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"/>
+
+        </LinearLayout>
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="20" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:visibility="gone"
+            android:text="stay connected" />
     </LinearLayout>
 
     <Space

@@ -58,7 +58,9 @@ public class PRegister extends AppCompatActivity {
             Pregistered = true;
             onVerificationStateChanged();
             Intent si = new Intent(PRegister.this, PDetails.class);
-            startActivity(si);        }
+            startActivity(si);
+            finish();
+        }
     }
 
     private void regOption() {
@@ -107,7 +109,7 @@ public class PRegister extends AppCompatActivity {
                         String image="empty";
                         //  userdb = new User
                         if (!PisUID) {
-                            UserP userPdb=new UserP("",PMail,"", "", "", "", Puid, PPass);
+                            UserP userPdb=new UserP("",PPass, PMail, "", "", "", "", Puid);
                             refUserP.child(Puid).setValue(userPdb);
                         }
                         Intent si = new Intent(PRegister.this, PDetails.class);
