@@ -26,7 +26,7 @@ public class BDetails extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_p_details);
+        setContentView(R.layout.activity_b_details);
 
          /*
         give each UI variable a value
@@ -38,6 +38,8 @@ public class BDetails extends AppCompatActivity {
 
     }
 
+    
+
 
     private void updatePDUI(FirebaseUser currentUser){
     }
@@ -47,26 +49,37 @@ public class BDetails extends AppCompatActivity {
      * make a toast accordingly.
      * @param view
      */
-    public void connect(View view) {
-       // BName=etBName.getText().toString();
-      //  BAdd=etBAdd.getText().toString();
-      //  BDes=etBDes.getText().toString();
-        if (etBName.getText().toString().isEmpty()||etBAdd.getText().toString().isEmpty()||etBDes.getText().toString().isEmpty()){
+    public void connectB(View view) {
+        BName=etBName.getText().toString();
+        BAdd=etBAdd.getText().toString();
+        BDes=etBDes.getText().toString();
+
+        FirebaseUser user = mBDAuth.getCurrentUser();
+        Buid = user.getUid();
+
+        updatePDUI(user);
+
+        if (BName.isEmpty()||BAdd.isEmpty()||BDes.isEmpty()){
             Toast.makeText(this, "please fill all the necessary details", Toast.LENGTH_SHORT).show();
         }
         else {
-            refUsersB.child(Buid).child("Pname").removeValue();
-            refUsersB.child(Buid).child("Pname").setValue(etBName.getText().toString());
+            refUsersB.child(Buid).child("name").removeValue();
+            refUsersB.child(Buid).child("name").setValue(BName);
 
-            refUsersB.child(Buid).child("Paddress").removeValue();
-            refUsersB.child(Buid).child("Paddress").setValue(etBAdd.getText().toString());
+            refUsersB.child(Buid).child("address").removeValue();
+            refUsersB.child(Buid).child("address").setValue(BAdd);
 
-            refUsersB.child(Buid).child("Pdesc").removeValue();
-            refUsersB.child(Buid).child("Pdesc").setValue(etBDes.getText().toString());
+            refUsersB.child(Buid).child("description").removeValue();
+            refUsersB.child(Buid).child("description").setValue(BDes);
             // Sign in success, update UI with the signed-in user's information
             //   Log.d(TAG, "createUserWithEmail:success");
+            if(etBDes.length()>50)
+                etBDes.setError("Description Is Too Long");
+            else{
             Intent si = new Intent(BDetails.this, BMain.class);
             startActivity(si);
+            finish();
+            }
         }
 
     }

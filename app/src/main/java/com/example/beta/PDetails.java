@@ -54,51 +54,6 @@ public class PDetails extends AppCompatActivity {
         lv.setAdapter(adapter);
     }
 
-
-    private void updatePDUI(FirebaseUser currentUser){
-    }
-
-    /**
-     * when register button is pressed, check if both fields are correct.
-     * make a toast accordingly.
-     * @param view
-     */
-
-
-    public void connect(View view) {
-        PName=etPName.getText().toString();
-        PAdd=etPAdd.getText().toString();
-        PDes=etPDes.getText().toString();
-
-        FirebaseUser user = mPDAuth.getCurrentUser();
-        Puid = user.getUid();
-
-       // PPAss=user.get
-        updatePDUI(user);
-
-        if (PName.isEmpty()||PAdd.isEmpty()||PDes.isEmpty()){
-            Toast.makeText(this, "please fill all the necessary details", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            refUsersP.child(Puid).child("name").removeValue();
-            refUsersP.child(Puid).child("name").setValue(PName);
-
-            refUsersP.child(Puid).child("address").removeValue();
-            refUsersP.child(Puid).child("address").setValue(PAdd);
-
-            refUsersP.child(Puid).child("desc").removeValue();
-            refUsersP.child(Puid).child("desc").setValue(PDes);
-
-            if (kidsBday != null){
-                refUsersP.child(Puid).child("desc").removeValue();
-                refUsersP.child(Puid).child("kidsBday").setValue(kidsBday);
-            }
-            Intent si = new Intent(PDetails.this, PMain.class);
-            startActivity(si);
-            finish();
-        }
-    }
-
     public void AddKNum(View view) {
 
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
@@ -130,4 +85,55 @@ public class PDetails extends AppCompatActivity {
         AlertDialog ad=adb.create();
         ad.show();
     }
+
+    private void updatePDUI(FirebaseUser currentUser){
+    }
+
+    /**
+     * when register button is pressed, check if both fields are correct.
+     * make a toast accordingly.
+     * @param view
+     */
+
+
+    public void connectP(View view) {
+        PName=etPName.getText().toString();
+        PAdd=etPAdd.getText().toString();
+        PDes=etPDes.getText().toString();
+
+        FirebaseUser user = mPDAuth.getCurrentUser();
+        Puid = user.getUid();
+
+       // PPAss=user.get
+        updatePDUI(user);
+
+        if (PName.isEmpty()||PAdd.isEmpty()||PDes.isEmpty()||kidsBday.isEmpty()){
+            Toast.makeText(this, "please fill all the necessary details", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            refUsersP.child(Puid).child("pname").removeValue();
+            refUsersP.child(Puid).child("pname").setValue(PName);
+
+            refUsersP.child(Puid).child("paddress").removeValue();
+            refUsersP.child(Puid).child("paddress").setValue(PAdd);
+
+            refUsersP.child(Puid).child("pdesc").removeValue();
+            refUsersP.child(Puid).child("pdesc").setValue(PDes);
+
+            if (kidsBday != null){
+                refUsersP.child(Puid).child("kidsBday").removeValue();
+                refUsersP.child(Puid).child("kidsBday").setValue(kidsBday);
+            }
+
+            if(etPDes.length()>50)
+                etPDes.setError("Description Is Too Long");
+            else{
+
+            Intent si = new Intent(PDetails.this, PMain.class);
+            startActivity(si);
+            finish();}
+        }
+    }
+
+
 }

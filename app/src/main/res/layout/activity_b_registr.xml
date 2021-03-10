@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:gravity="center"
-    tools:context=".MainActivity">
+    tools:context="BRegistr">
 
 
     <Space
@@ -96,14 +96,22 @@
                 android:id="@+id/tvRegister"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="35"
+                android:layout_weight="32"
                 android:textColor="#000000"/>
 
             <Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="5"/>
+            <CheckBox
+                android:id="@+id/cBstayconnect"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:checked="false"
+                android:layout_weight="3"
+                android:visibility="gone"
 
+                android:text="stay connected" />
         </LinearLayout>
 
         <Space
@@ -111,13 +119,7 @@
             android:layout_height="0dp"
             android:layout_weight="20" />
 
-        <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:visibility="gone"
-            android:text="stay connected" />
+
     </LinearLayout>
 
     <Space
