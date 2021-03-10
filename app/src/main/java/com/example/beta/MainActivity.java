@@ -26,11 +26,13 @@ public class MainActivity extends AppCompatActivity {
     public void sitter(View view) {
         Intent si = new Intent(MainActivity.this, BRegistr.class);
         startActivity(si);
+        finish();
     }
 
     public void parent(View view) {
         Intent si = new Intent(MainActivity.this, PRegister.class);
         startActivity(si);
+        finish();
     }
 
 

@@ -12,12 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Beta">
         <activity android:name=".PMain"></activity>
-        <activity android:name=".PDetails" />
+        <activity android:name=".PDetails"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".BRegistr" />
         <activity android:name=".BDetails" />
         <activity android:name=".BMain" />
         <activity android:name=".about" />
-        <activity android:name=".BRegister" />
         <activity android:name=".PRegister" />
         <activity android:name=".MainActivity">
             <intent-filter>

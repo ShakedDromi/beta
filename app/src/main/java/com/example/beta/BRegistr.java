@@ -25,6 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static com.example.beta.FBref.refUsersB;
+
 public class BRegistr extends AppCompatActivity {
 
     TextView tvTitle, tvRegister;
@@ -38,8 +40,8 @@ public class BRegistr extends AppCompatActivity {
     FirebaseAuth refAuth;
 
 
-    public static FirebaseDatabase FBDB = FirebaseDatabase.getInstance();
-    public static DatabaseReference refUserB= FBDB.getReference("UserB");
+   // public static FirebaseDatabase FBDB = FirebaseDatabase.getInstance();
+   // public static DatabaseReference refUserB= FBDB.getReference("UserB");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -209,7 +211,7 @@ public class BRegistr extends AppCompatActivity {
 //if(BPass.contentEquals(refUserB.child(BPass)))
                 // FirebaseUser UserB = refAuth.getCurrentUser();
                 //Buid = UserB.getUid();
-                if (BPass.contentEquals(refUserB.child(BPass).toString())) {
+                if (BPass.contentEquals(refUsersB.child(BPass).toString())) {
                     Intent si = new Intent(BRegistr.this, BDetails.class);
                     startActivity(si);
                     finish();
@@ -240,7 +242,7 @@ public class BRegistr extends AppCompatActivity {
                             //  userdb = new User
                             if (!isUID) {
                                 UserB userdb=new UserB("",BMail,"", "", "", "", Buid, BPass);
-                                refUserB.child(Buid).setValue(userdb);
+                                refUsersB.child(Buid).setValue(userdb);
                             }
                             Intent si = new Intent(BRegistr.this, BDetails.class);
                             startActivity(si);

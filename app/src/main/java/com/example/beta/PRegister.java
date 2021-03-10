@@ -18,14 +18,16 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import static com.example.beta.FBref.refUsersP;
+
 public class PRegister extends AppCompatActivity {
 
     String PMail="", PPass="", Puid="";
     EditText Pmail,Ppass;
     private FirebaseAuth mPAuth;
     Boolean PstayConnect, PfirstRun=true,PisUID=false, Pregistered=false;
-    public static FirebaseDatabase PFBDB = FirebaseDatabase.getInstance();
-    public static DatabaseReference refUserP= PFBDB.getReference("UserP");
+    //public static FirebaseDatabase PFBDB = FirebaseDatabase.getInstance();
+    //public static DatabaseReference refUserP= PFBDB.getReference("UserP");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +61,13 @@ public class PRegister extends AppCompatActivity {
             onVerificationStateChanged();
             Intent si = new Intent(PRegister.this, PDetails.class);
             startActivity(si);
-            finish();
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
     }
 
     private void regOption() {
@@ -110,7 +117,7 @@ public class PRegister extends AppCompatActivity {
                         //  userdb = new User
                         if (!PisUID) {
                             UserP userPdb=new UserP("",PPass, PMail, "", "", "", "", Puid);
-                            refUserP.child(Puid).setValue(userPdb);
+                            refUsersP.child(Puid).setValue(userPdb);
                         }
                         Intent si = new Intent(PRegister.this, PDetails.class);
                         startActivity(si);

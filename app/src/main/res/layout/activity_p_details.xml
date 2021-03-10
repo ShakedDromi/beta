@@ -11,66 +11,66 @@
     <Space
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="10"/>
+        android:layout_weight="10" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="80">
+        android:layout_weight="80"
+        android:orientation="vertical">
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="6"/>
+            android:layout_weight="6" />
 
         <TextView
             android:id="@+id/tvTitl"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight="10"
             android:autoSizeTextType="uniform"
             android:text="fill in your details"
             android:textSize="30dp"
-            android:textStyle="bold"
-            android:layout_weight="10" />
+            android:textStyle="bold" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"/>
+            android:layout_weight="3" />
 
         <EditText
             android:id="@+id/etPName"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight="7"
             android:hint="name"
-            android:inputType="textPersonName"
-            android:layout_weight="7" />
+            android:inputType="textPersonName" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"/>
+            android:layout_weight="3" />
 
 
         <EditText
             android:id="@+id/etPAdd"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight="7"
             android:hint="address"
-            android:inputType="textPersonName"
-            android:layout_weight="7"/>
+            android:inputType="textPersonName" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"/>
+            android:layout_weight="3" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:orientation="horizontal"
-            android:layout_weight="15">
+            android:layout_weight="15"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnAdd"
@@ -78,17 +78,18 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="10"
                 android:onClick="AddKNum"
-                android:text="add+"/>
+                android:text="add+" />
 
             <Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="20"/>
+                android:layout_weight="20" />
 
             <ListView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="70"/>
+                android:layout_weight="70"
+                android:id="@+id/lv"/>
 
         </LinearLayout>
 
@@ -96,46 +97,38 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"/>
+            android:layout_weight="3" />
 
         <EditText
             android:id="@+id/etPDes"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight="14"
             android:hint="description"
-            android:inputType="textPersonName"
-            android:layout_weight="14"/>
+            android:inputType="textPersonName" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"/>
+            android:layout_weight="3" />
 
         <ImageView
             android:id="@+id/IView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:srcCompat="@android:drawable/ic_menu_slideshow"
-            android:layout_weight="7"/>
+            android:layout_weight="7"
+            app:srcCompat="@android:drawable/ic_menu_slideshow" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"/>
-
-        <CheckBox
-            android:id="@+id/checkBoxParent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:visibility="gone"
-            android:text="stay connected" />
+            android:layout_weight="3" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:orientation="horizontal"
-            android:layout_weight="10">
+            android:layout_weight="10"
+            android:orientation="horizontal">
 
 
             <Button
@@ -144,19 +137,19 @@
                 android:layout_height="match_parent"
                 android:layout_weight="45"
                 android:onClick="connect"
-                android:text="connect"/>
+                android:text="connect" />
 
             <Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="10"/>
+                android:layout_weight="10" />
 
             <TextView
                 android:id="@+id/tvRegisterP"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="45"
-                android:textColor="#000000"/>
+                android:textColor="#000000" />
 
 
         </LinearLayout>
@@ -164,13 +157,13 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="6"/>
+            android:layout_weight="6" />
 
     </LinearLayout>
 
     <Space
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="10"/>
+        android:layout_weight="10" />
 
 </LinearLayout>

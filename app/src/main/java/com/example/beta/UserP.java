@@ -1,11 +1,14 @@
 package com.example.beta;
 
+import java.util.ArrayList;
+
 /**
  * a user class
  * contains all of the data required for a user.
  */
 public class UserP {
-    private String Pname, Ppass, Pmail, Paddress, Pdesc, PDate, Pimage, Puid;
+    private String Pname, Ppass, Pmail, Paddress, Pdesc,Pimage, Puid;
+    private ArrayList<String> kidsBday;
     /**
      * an empty builder.
      * this function is not used, but is required in order to use Firebase.
@@ -22,20 +25,19 @@ public class UserP {
      * @param Pmail
      * @param Paddress
      * @param Pdesc
-     * @param PDate
      * @param Pimage
      * @param Puid
      */
-    public UserP(String Pname, String Ppass, String Pmail, String Paddress, String Pdesc, String PDate, String Pimage, String Puid){
+    public UserP(String Pname, String Ppass, String Pmail, String Paddress, String Pdesc, String Pimage, String Puid){
         this.Pname=Pname;
         this.Ppass=Ppass;
         this.Pmail=Pmail;
         this.Paddress=Paddress;
         this.Pdesc=Pdesc;
-        this.PDate=PDate;
         this.Pimage=Pimage;
         this.Puid=Puid;
     }
+
 
     public String getPname(){return Pname;}
     public void setPname(String Pname){this.Pname=Pname;}
@@ -58,17 +60,18 @@ public class UserP {
     }
     public void setPdesc(String desc) { this.Pdesc = Pdesc; }
 
-    public String getPDate() {
-        return PDate;
-    }
-    public void setPDate(String bDate) {
-        this.PDate = PDate;
-    }
-
     public String getPimage(){return Pimage;}
     public void setPimage(String image){this.Pimage=Pimage;}
 
     public String getPuid(){return Puid;}
     public void setPuid(String image){this.Puid=Puid;}
+
+    public ArrayList<String> getKidsBday() {
+        return kidsBday;
+    }
+
+    public void setKidsBday(ArrayList<String> kidsBday) {
+        this.kidsBday = kidsBday;
+    }
 }
 

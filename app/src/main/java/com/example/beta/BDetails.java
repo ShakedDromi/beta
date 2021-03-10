@@ -13,13 +13,15 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import static com.example.beta.FBref.refUsersB;
+
 public class BDetails extends AppCompatActivity {
     String BName="", BAdd="", BDes="", Buid="";
     EditText etBName,etBAdd,etBDes;
     private FirebaseAuth mBDAuth;
     Boolean  BDisUID=false;
-    public static FirebaseDatabase BDFBDB = FirebaseDatabase.getInstance();
-    public static DatabaseReference refUserB= BDFBDB.getReference("UserB");
+    //public static FirebaseDatabase BDFBDB = FirebaseDatabase.getInstance();
+    //public static DatabaseReference refUserB= BDFBDB.getReference("UserB");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,14 +55,14 @@ public class BDetails extends AppCompatActivity {
             Toast.makeText(this, "please fill all the necessary details", Toast.LENGTH_SHORT).show();
         }
         else {
-            refUserB.child(Buid).child("Pname").removeValue();
-            refUserB.child(Buid).child("Pname").setValue(etBName.getText().toString());
+            refUsersB.child(Buid).child("Pname").removeValue();
+            refUsersB.child(Buid).child("Pname").setValue(etBName.getText().toString());
 
-            refUserB.child(Buid).child("Paddress").removeValue();
-            refUserB.child(Buid).child("Paddress").setValue(etBAdd.getText().toString());
+            refUsersB.child(Buid).child("Paddress").removeValue();
+            refUsersB.child(Buid).child("Paddress").setValue(etBAdd.getText().toString());
 
-            refUserB.child(Buid).child("Pdesc").removeValue();
-            refUserB.child(Buid).child("Pdesc").setValue(etBDes.getText().toString());
+            refUsersB.child(Buid).child("Pdesc").removeValue();
+            refUsersB.child(Buid).child("Pdesc").setValue(etBDes.getText().toString());
             // Sign in success, update UI with the signed-in user's information
             //   Log.d(TAG, "createUserWithEmail:success");
             Intent si = new Intent(BDetails.this, BMain.class);
