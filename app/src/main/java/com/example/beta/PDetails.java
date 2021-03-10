@@ -59,6 +59,8 @@ public class PDetails extends AppCompatActivity {
 
         FirebaseUser user = mPDAuth.getCurrentUser();
         Puid = user.getUid();
+
+       // PPAss=user.get
         updatePDUI(user);
 
         if (PName.isEmpty()||PAdd.isEmpty()||PDes.isEmpty()){
@@ -66,21 +68,24 @@ public class PDetails extends AppCompatActivity {
         }
         else {
 
-          //  PMAil.equals(refUserP.child(Puid).child("PMAil").get(PMAil));
+
+            /*PMAil=refUserP.child(Puid).child("PMail").get();
+            PMAil.equals(refUserP.child(Puid).child("PMAil").get(PMAil));*/
+           // PMAil=user.getEmail();
 
 
-            refUserP.child(Puid).child("Pname").removeValue();
-            refUserP.child(Puid).child("Pname").setValue(PName);
+            refUserP.child(Puid).child("name").removeValue();
+            refUserP.child(Puid).child("name").setValue(PName);
 
-            refUserP.child(Puid).child("Paddress").removeValue();
-            refUserP.child(Puid).child("Paddress").setValue(PAdd);
+            refUserP.child(Puid).child("address").removeValue();
+            refUserP.child(Puid).child("address").setValue(PAdd);
 
-            refUserP.child(Puid).child("Pdesc").removeValue();
-            refUserP.child(Puid).child("Pdesc").setValue(PDes);
+            refUserP.child(Puid).child("desc").removeValue();
+            refUserP.child(Puid).child("desc").setValue(PDes);
 
             //if (!PDisUID) {
-                UserB userdb=new UserB(PName,"","", PAdd, "", PDes, Puid, "");
-            refUserP.child(Puid).setValue(userdb);
+            //    UserB userdb=new UserB(PName,PMAil,"", PAdd, "", PDes, Puid, "");
+         //   refUserP.child(Puid).setValue(userdb);
           //  }
            // Intent si = new Intent(BRegistr.this, BDetails.class);
        //     startActivity(si);
