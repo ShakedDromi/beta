@@ -172,7 +172,7 @@ public class BRegistr extends AppCompatActivity {
             if ((!BMail.contains("@") || !BMail.endsWith(".il")) && (!BMail.endsWith(".com") || !BMail.contains("@"))) {
                 etBmail.setError("Mail is Invalid!");
             }
-            if (BPass.length() < 6) {
+            if (BPass.length() < 5) {
                 etBpass.setError("Password Needs To Be At Least 5 Characters!");
             } else {
                 if (registered) {

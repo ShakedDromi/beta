@@ -26,7 +26,7 @@
             android:layout_weight="10" />
 
         <TextView
-            android:id="@+id/tvTitle"
+            android:id="@+id/tvBTitle"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:autoSizeTextType="uniform"
@@ -66,24 +66,37 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight="5"/>
+
+        <CheckBox
+            android:id="@+id/cBstayconnect"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="6"
+            android:text="stay connected"
+            android:visibility="visible" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="4" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="horizontal"
-            android:layout_weight="10">
+            android:layout_weight="14">
 
             <Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="5"/>
+                android:layout_weight="7"/>
 
             <Button
                 android:id="@+id/btnB"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="35"
+                android:layout_weight="40"
                 android:onClick="logOrReg"
                 android:text="connect"/>
 
@@ -93,25 +106,16 @@
                 android:layout_weight="10"/>
 
             <TextView
-                android:id="@+id/tvRegister"
+                android:id="@+id/tvBRegister"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="32"
+                android:layout_weight="36"
                 android:textColor="#000000"/>
 
             <Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="5"/>
-            <CheckBox
-                android:id="@+id/cBstayconnect"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:checked="false"
-                android:layout_weight="3"
-                android:visibility="gone"
-
-                android:text="stay connected" />
+                android:layout_weight="7"/>
         </LinearLayout>
 
         <Space

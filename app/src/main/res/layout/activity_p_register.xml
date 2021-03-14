@@ -66,24 +66,37 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight="5"/>
+
+        <CheckBox
+            android:id="@+id/PcBstayconnect"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="6"
+            android:text="stay connected"
+            android:visibility="visible" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="4" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="horizontal"
-            android:layout_weight="10">
+            android:layout_weight="14">
 
             <Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="5"/>
+                android:layout_weight="7"/>
 
             <Button
                 android:id="@+id/btnP"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="35"
+                android:layout_weight="40"
                 android:onClick="LOrR"
                 android:text="connect"/>
 
@@ -96,19 +109,13 @@
                 android:id="@+id/tvPRegister"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="34"
+                android:layout_weight="36"
                 android:textColor="#000000"/>
 
             <Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="5"/>
-            <CheckBox
-                android:id="@+id/PcBstayconnect"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="stay connected" />
+                android:layout_weight="7"/>
         </LinearLayout>
 
         <Space

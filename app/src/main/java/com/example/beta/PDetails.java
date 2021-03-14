@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import static com.example.beta.FBref.refUsersP;
 
@@ -70,8 +71,20 @@ public class PDetails extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String strDate = ""+picker.getDayOfMonth()+"/"+picker.getMonth()+"/"+picker.getYear();
-                kidsBday.add(strDate);
-                adapter.notifyDataSetChanged();
+                int currentYear= Calendar.getInstance().get(Calendar.YEAR);
+                int currentMonth= Calendar.getInstance().get(Calendar.MONTH);
+                int currentDay= Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+                int currentDate= Calendar.getInstance().get(Calendar.DATE);
+
+               //problem with if- how can i know the date the user chose hasnt been yet, like- 2.10.2022
+                //how do i make the date the original- instead of 2.2.2021-- 2.3.2021
+                if(!strDate.equals(String.valueOf(currentDate))&&((picker.getDayOfMonth()<currentDay)&&(picker.getMonth()<currentMonth)&&(picker.getYear()<currentYear))){
+                    kidsBday.add(strDate);
+                    adapter.notifyDataSetChanged();
+                }else{
+                    Toast.makeText(PDetails.this, "Date Picked is Invalid",Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 

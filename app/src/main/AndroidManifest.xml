@@ -11,9 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Beta">
-        <activity android:name=".PMain"></activity>
-        <activity android:name=".PDetails"
-            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".PPersonal"></activity>
+        <activity android:name=".PMain" />
+        <activity
+            android:name=".PDetails"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".BRegistr" />
         <activity android:name=".BDetails" />
         <activity android:name=".BMain" />

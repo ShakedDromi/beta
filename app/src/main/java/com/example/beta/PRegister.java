@@ -89,7 +89,7 @@ public class PRegister extends AppCompatActivity {
         SharedPreferences settings=getSharedPreferences("PREFS_NAME",MODE_PRIVATE);
         Boolean isChecked=settings.getBoolean("stayConnect",false);
         Intent si=new Intent(PRegister.this, PDetails.class);
-        if((refAuth.getCurrentUser()!=null)&&(isChecked)){
+        if((refAuth.getCurrentUser()!=null) && (isChecked)){
             PstayConnect =true;
             si.putExtra("UserP",false);
             startActivity(si);
@@ -167,7 +167,7 @@ public class PRegister extends AppCompatActivity {
             if((!PMail.contains("@")||!PMail.endsWith(".il"))&&(!PMail.endsWith(".com")||!PMail.contains("@"))){
                 etPmail.setError("Mail is Invalid!");
             }
-            if(PPass.length()<6){
+            if(PPass.length()<5){
                 etPpass.setError("Password Needs To Be At Least 5 Characters!");
             }
             else{
