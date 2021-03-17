@@ -88,7 +88,7 @@ public class PRegister extends AppCompatActivity {
         super.onStart();
         SharedPreferences settings=getSharedPreferences("PREFS_NAME",MODE_PRIVATE);
         Boolean isChecked=settings.getBoolean("stayConnect",false);
-        Intent si=new Intent(PRegister.this, PDetails.class);
+        Intent si=new Intent(PRegister.this, PMain.class);
         if((refAuth.getCurrentUser()!=null) && (isChecked)){
             PstayConnect =true;
             si.putExtra("UserP",false);
@@ -187,7 +187,7 @@ public class PRegister extends AppCompatActivity {
                                 editor.commit();
                                 Log.d("PRegistr", "signinUserWithEmail:success");
                                 Toast.makeText(PRegister.this, "Login Success", Toast.LENGTH_SHORT).show();
-                                Intent si=new Intent(PRegister.this,PMain.class);
+                                Intent si=new Intent(PRegister.this,PPersonal.class);
                                 si.putExtra("UserP",false);
                                 startActivity(si);
                                 finish();

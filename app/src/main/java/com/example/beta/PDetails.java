@@ -35,7 +35,6 @@ public class PDetails extends AppCompatActivity {
     ArrayAdapter<String> adapter;
 
     //public static FirebaseDatabase PDFBDB = FirebaseDatabase.getInstance();
-   // public static DatabaseReference refUserP= PDFBDB.getReference("UserP");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +69,7 @@ public class PDetails extends AppCompatActivity {
         adb.setPositiveButton("set", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String strDate = ""+picker.getDayOfMonth()+"/"+picker.getMonth()+"/"+picker.getYear();
+                String strDate = ""+picker.getDayOfMonth()+"/"+(picker.getMonth()+1)+"/"+picker.getYear();
                 int currentYear= Calendar.getInstance().get(Calendar.YEAR);
                 int currentMonth= Calendar.getInstance().get(Calendar.MONTH);
                 int currentDay= Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
@@ -138,11 +137,11 @@ public class PDetails extends AppCompatActivity {
                 refUsersP.child(Puid).child("kidsBday").setValue(kidsBday);
             }
 
-            if(etPDes.length()>50)
+            if(etPDes.length()>100)
                 etPDes.setError("Description Is Too Long");
             else{
 
-            Intent si = new Intent(PDetails.this, PMain.class);
+            Intent si = new Intent(PDetails.this, PPersonal.class);
             startActivity(si);
             finish();}
         }

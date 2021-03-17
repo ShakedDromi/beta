@@ -1,13 +1,14 @@
 package com.example.beta;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * a user class
  * contains all of the data required for a user.
  */
-public class UserP {
-    private String Pname, Ppass, Pmail, Paddress, Pdesc,Pimage, Puid;
+public class UserP implements Serializable {
+    private String pname, ppass, pmail, paddress, pdesc, pimage, puid;
     private ArrayList<String> kidsBday;
     /**
      * an empty builder.
@@ -20,7 +21,7 @@ public class UserP {
     /**
      * User class builder.
      * this function gets all of the variables that are required in order to assemble a user
-     * @param Pname
+     * @param pname
      * @param Ppass
      * @param Pmail
      * @param Paddress
@@ -28,43 +29,43 @@ public class UserP {
      * @param Pimage
      * @param Puid
      */
-    public UserP(String Pname, String Ppass, String Pmail, String Paddress, String Pdesc, String Pimage, String Puid){
-        this.Pname=Pname;
-        this.Ppass=Ppass;
-        this.Pmail=Pmail;
-        this.Paddress=Paddress;
-        this.Pdesc=Pdesc;
-        this.Pimage=Pimage;
-        this.Puid=Puid;
+    public UserP(String name, String ppass, String pmail, String paddress, String pdesc, String pimage, String puid){
+        this.pname=pname;
+        this.ppass =ppass;
+        this.pmail =pmail;
+        this.paddress =paddress;
+        this.pdesc =pdesc;
+        this.pimage =pimage;
+        this.puid =puid;
     }
 
 
-    public String getPname(){return Pname;}
-    public void setPname(String Pname){this.Pname=Pname;}
+    public String getpname(){return pname;}
+    public void setpname(String Pname){this.pname =Pname;}
 
-    public String getPpass(){return Ppass;}
-    public void setPpass(String phNumber){this.Ppass=Ppass;}
+    public String getppass(){return ppass;}
+    public void setppass(String phNumber){this.ppass = ppass;}
 
-    public String getPmail(){return Pmail;}
-    public void setPmail(String Puid){this.Pmail=Pmail;}
+    public String getpmail(){return pmail;}
+    public void setpmail(String Puid){this.pmail = pmail;}
 
-    public String getPaddress() {
-        return Paddress;
+    public String getpaddress() {
+        return paddress;
     }
-    public void setPaddress(String Paddress) {
-        this.Paddress = Paddress;
+    public void setpaddress(String Paddress) {
+        this.paddress = Paddress;
     }
 
-    public String getPdesc() {
-        return Pdesc;
+    public String getpdesc() {
+        return pdesc;
     }
-    public void setPdesc(String desc) { this.Pdesc = Pdesc; }
+    public void setpdesc(String desc) { this.pdesc = pdesc; }
 
-    public String getPimage(){return Pimage;}
-    public void setPimage(String image){this.Pimage=Pimage;}
+    public String getpimage(){return pimage;}
+    public void setpimage(String image){this.pimage = pimage;}
 
-    public String getPuid(){return Puid;}
-    public void setPuid(String image){this.Puid=Puid;}
+    public String getpuid(){return puid;}
+    public void setPuid(String image){this.puid = puid;}
 
     public ArrayList<String> getKidsBday() {
         return kidsBday;
