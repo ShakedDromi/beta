@@ -3,8 +3,11 @@ package com.example.beta;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -24,7 +27,7 @@ import static com.example.beta.FBref.refUsersP;
 
 public class PDetails extends AppCompatActivity {
 
-    String PName="", PAdd="", PDes="", Puid="", PMAil="", PPAss="";
+    String PName="", PAdd="", PDes="", Puid="", PMAil="", PPAss="", date="";
     ArrayList<String> kidsBday;
     EditText etPName,etPAdd,etPDes;
     private FirebaseAuth mPDAuth;
@@ -33,6 +36,9 @@ public class PDetails extends AppCompatActivity {
     TextView tvPbday;
     ListView lv;
     ArrayAdapter<String> adapter;
+
+    DatePickerDialog.OnDateSetListener mDateSetListener;
+
 
     //public static FirebaseDatabase PDFBDB = FirebaseDatabase.getInstance();
 
@@ -69,21 +75,36 @@ public class PDetails extends AppCompatActivity {
         adb.setPositiveButton("set", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String strDate = ""+picker.getDayOfMonth()+"/"+(picker.getMonth()+1)+"/"+picker.getYear();
-                int currentYear= Calendar.getInstance().get(Calendar.YEAR);
-                int currentMonth= Calendar.getInstance().get(Calendar.MONTH);
-                int currentDay= Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-                int currentDate= Calendar.getInstance().get(Calendar.DATE);
+                String strDate = "" + picker.getDayOfMonth() + "/" + (picker.getMonth() + 1) + "/" + picker.getYear();
+                int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+                int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+                int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+                int currentDate = Calendar.getInstance().get(Calendar.DATE);
 
-               //problem with if- how can i know the date the user chose hasnt been yet, like- 2.10.2022
+                //problem with if- how can i know the date the user chose hasnt been yet, like- 2.10.2022
                 //how do i make the date the original- instead of 2.2.2021-- 2.3.2021
-                if(!strDate.equals(String.valueOf(currentDate))&&((picker.getDayOfMonth()<currentDay)&&(picker.getMonth()<currentMonth)&&(picker.getYear()<currentYear))){
+                /*if(!strDate.equals(String.valueOf(currentDate))&&((picker.getDayOfMonth()<currentDay)&&(picker.getMonth()<currentMonth)&&(picker.getYear()<currentYear))){
                     kidsBday.add(strDate);
                     adapter.notifyDataSetChanged();
                 }else{
                     Toast.makeText(PDetails.this, "Date Picked is Invalid",Toast.LENGTH_LONG).show();
-                }
+                }*/
 
+                if (((currentYear - picker.getYear()) < 0))
+                    Toast.makeText(PDetails.this, "Date Picked is Invalid", Toast.LENGTH_LONG).show();
+                else {
+                    if (((currentYear - picker.getYear()) == 0)  && (currentMonth- picker.getMonth()<6))
+                        Toast.makeText(PDetails.this, "Date Picked is Invalid", Toast.LENGTH_LONG).show();
+                    else {
+                        if ((currentYear - picker.getYear() == 1) && (12 + (currentMonth - 6) <= picker.getMonth()))
+                            Toast.makeText(PDetails.this, "Date Picked is Invalid", Toast.LENGTH_LONG).show();
+                        else {
+                            kidsBday.add(strDate);
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+
+                }
             }
         });
 
@@ -123,17 +144,11 @@ public class PDetails extends AppCompatActivity {
             Toast.makeText(this, "please fill all the necessary details", Toast.LENGTH_SHORT).show();
         }
         else {
-            refUsersP.child(Puid).child("pname").removeValue();
             refUsersP.child(Puid).child("pname").setValue(PName);
-
-            refUsersP.child(Puid).child("paddress").removeValue();
             refUsersP.child(Puid).child("paddress").setValue(PAdd);
-
-            refUsersP.child(Puid).child("pdesc").removeValue();
             refUsersP.child(Puid).child("pdesc").setValue(PDes);
 
             if (kidsBday != null){
-                refUsersP.child(Puid).child("kidsBday").removeValue();
                 refUsersP.child(Puid).child("kidsBday").setValue(kidsBday);
             }
 

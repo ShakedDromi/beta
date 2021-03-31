@@ -24,8 +24,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import static com.example.beta.FBref.refAuth;
+import static com.example.beta.FBref.refUsersB;
 import static com.example.beta.FBref.refUsersP;
 
 public class PRegister extends AppCompatActivity {
@@ -38,6 +42,8 @@ public class PRegister extends AppCompatActivity {
     Button btnP;
     UserP userPdb;
     CheckBox PcBstayconnect;
+    boolean userAlreadyExistsAsBabysitter=true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,74 +170,134 @@ public class PRegister extends AppCompatActivity {
         if(PMail.isEmpty()||PPass.isEmpty())
             Toast.makeText(this, "please fill all the necessary fileds", Toast.LENGTH_SHORT).show();
         else{
-            if((!PMail.contains("@")||!PMail.endsWith(".il"))&&(!PMail.endsWith(".com")||!PMail.contains("@"))){
+          /*  if((!PMail.contains("@")||!PMail.endsWith(".il"))&&(!PMail.endsWith(".com")||!PMail.contains("@"))){
                 etPmail.setError("Mail is Invalid!");
-            }
-            if(PPass.length()<5){
-                etPpass.setError("Password Needs To Be At Least 5 Characters!");
-            }
-            else{
-                if(Pregistered){
-                    PMail = etPmail.getText().toString();
-                    PPass = etPpass.getText().toString();
-
-                    final ProgressDialog pd=ProgressDialog.show(this,"Login","Connecting...",true);
-                    refAuth.signInWithEmailAndPassword(PMail, PPass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            }*/
+            // Check if email id is valid or not
+            if (!isEmailValid(PMail))
+                etPmail.setError("Mail is Invalid!");
+            else {
+                if (PPass.length() < 5)
+                    etPpass.setError("Password Needs To Be At Least 5 Characters!");
+                else {
+                    if (!PPass.matches("[a-zA-Z0-9]*"))
+                        etPpass.setError("Password must contain only English letters and numbers");
+                    else {
+                        refUsersB.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            pd.dismiss();
-                            if(task.isSuccessful()){
-                                SharedPreferences settings=getSharedPreferences("PREFS_NAME",MODE_PRIVATE);
-                                SharedPreferences.Editor editor=settings.edit();
-                                editor.putBoolean("stayConnect", PcBstayconnect.isChecked());
-                                editor.commit();
-                                Log.d("PRegistr", "signinUserWithEmail:success");
-                                Toast.makeText(PRegister.this, "Login Success", Toast.LENGTH_SHORT).show();
-                                Intent si=new Intent(PRegister.this,PPersonal.class);
-                                si.putExtra("UserP",false);
-                                startActivity(si);
-                                finish();
-                            } else{
-                                Log.d("PRegistr", "signinUserWithEmail:fail");
-                                Toast.makeText(PRegister.this, "email or password are wrong!", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-                } else{
-                    PMail = etPmail.getText().toString();
-                    PPass = etPpass.getText().toString();
-                    final ProgressDialog pd=ProgressDialog.show(this,"Register","Registering...",true);
-                    refAuth.createUserWithEmailAndPassword(PMail, PPass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            pd.dismiss();
-                            if(task.isSuccessful()){
-                                SharedPreferences settings=getSharedPreferences("PREF_NAME",MODE_PRIVATE);
-                                SharedPreferences.Editor editor=settings.edit();
-                                editor.putBoolean("stayConnect", PcBstayconnect.isChecked());
-                                editor.commit();
-                                Log.d("PRegistr", "createUserWithEmail:success");
-                                FirebaseUser UserP=refAuth.getCurrentUser();
-                                Puid =UserP.getUid();
-                                userPdb =new UserP("", PPass,PMail,"","","", Puid);
-                                refUsersP.child(Puid).setValue(userPdb);
-                                Toast.makeText(PRegister.this, "Successful Registration", Toast.LENGTH_SHORT).show();
-                                Intent si= new Intent(PRegister.this, PDetails.class);
-                                si.putExtra("UesrP",true);
-                                startActivity(si);
-                                finish();
-                            } else {
-                                if(task.getException() instanceof FirebaseAuthUserCollisionException)
-                                    Toast.makeText(PRegister.this,"User With Email Alreasy Exist!",Toast.LENGTH_SHORT).show();
-                                else{
-                                    Log.w("PRegistr", "createUserWithEmail:failure", task.getException());
-                                    Toast.makeText(PRegister.this,"User Creat Failed",Toast.LENGTH_LONG).show();
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                                UserB userbcheck = dataSnapshot.getValue(UserB.class);
+                                if (userbcheck.getMail().equals(PMail)) {
+                                    //   Toast.makeText(PRegister.this, "User With Email Alreasy Exist!", Toast.LENGTH_SHORT).show();
+                                    userAlreadyExistsAsBabysitter=true;
                                 }
+                                else userAlreadyExistsAsBabysitter=false;
                             }
                         }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
                     });
+                        if (!userAlreadyExistsAsBabysitter) {
+                        if (Pregistered) {
+                            PMail = etPmail.getText().toString();
+                            PPass = etPpass.getText().toString();
+
+
+
+                            final ProgressDialog pd = ProgressDialog.show(this, "Login", "Connecting...", true);
+                            refAuth.signInWithEmailAndPassword(PMail, PPass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    pd.dismiss();
+                                   if (task.isSuccessful()) {
+                                        SharedPreferences settings = getSharedPreferences("PREFS_NAME", MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = settings.edit();
+                                        editor.putBoolean("stayConnect", PcBstayconnect.isChecked());
+                                        editor.commit();
+                                        Log.d("PRegistr", "signinUserWithEmail:success");
+                                        Toast.makeText(PRegister.this, "Login Success", Toast.LENGTH_SHORT).show();
+                                        Intent si = new Intent(PRegister.this, PPersonal.class);
+                                        si.putExtra("UserP", false);
+                                        startActivity(si);
+                                        finish();
+                                    } else {
+                                        Log.d("PRegistr", "signinUserWithEmail:fail");
+                                        Toast.makeText(PRegister.this, "email or password are wrong!", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
+                        } else {
+                            PMail = etPmail.getText().toString();
+                            PPass = etPpass.getText().toString();
+                            final ProgressDialog pd = ProgressDialog.show(this, "Register", "Registering...", true);
+                            refAuth.createUserWithEmailAndPassword(PMail, PPass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    pd.dismiss();
+                                    if (task.isSuccessful()) {
+                                        SharedPreferences settings = getSharedPreferences("PREF_NAME", MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = settings.edit();
+                                        editor.putBoolean("stayConnect", PcBstayconnect.isChecked());
+                                        editor.commit();
+                                        Log.d("PRegistr", "createUserWithEmail:success");
+                                        FirebaseUser UserP = refAuth.getCurrentUser();
+                                        Puid = UserP.getUid();
+                                        userPdb = new UserP("", PPass, PMail, "", "", "", Puid, 0);
+                                        refUsersP.child(Puid).setValue(userPdb);
+                                        Toast.makeText(PRegister.this, "Successful Registration", Toast.LENGTH_SHORT).show();
+                                        Intent si = new Intent(PRegister.this, PDetails.class);
+                                        si.putExtra("UesrP", true);
+                                        startActivity(si);
+                                        finish();
+                                    } else {
+                                          /*  refUsersB.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    for (DataSnapshot dataSnapshot: snapshot.getChildren()){
+                                                        UserB userbcheck= dataSnapshot.getValue(UserB.class);
+                                                        if (userbcheck.getMail().equals(PMail))
+                                                            Toast.makeText(PRegister.this, "User With Email Alreasy Exist!", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });*/
+                                            if (task.getException() instanceof FirebaseAuthUserCollisionException)
+                                                Toast.makeText(PRegister.this, "User With Email Alreasy Exist!", Toast.LENGTH_SHORT).show();
+
+                                            else {
+                                                Log.w("PRegistr", "createUserWithEmail:failure", task.getException());
+                                                Toast.makeText(PRegister.this, "User Creat Failed", Toast.LENGTH_LONG).show();
+                                            }
+                                    }
+                                }
+                            });
+                        }
+                        }
+                        else{
+                            Toast.makeText(PRegister.this, "User With Email Already Exist as a Babysitter!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 }
             }
         }
+    }
+
+    boolean isEmailValid(String email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent goBackFromPRegister= new Intent(this, MainActivity.class);
+        startActivity(goBackFromPRegister);
+
     }
 }
