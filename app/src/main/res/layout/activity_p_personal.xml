@@ -11,12 +11,12 @@
     <Space
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="10" />
+        android:layout_weight="5" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="80"
+        android:layout_weight="90"
         android:orientation="vertical">
 
         <Space
@@ -225,6 +225,6 @@
     <Space
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="10" />
+        android:layout_weight="5" />
 
 </LinearLayout>

@@ -152,7 +152,7 @@ public class PDetails extends AppCompatActivity {
                 refUsersP.child(Puid).child("kidsBday").setValue(kidsBday);
             }
 
-            if(etPDes.length()>100)
+            if(etPDes.length()>=100)
                 etPDes.setError("Description Is Too Long");
             else{
 

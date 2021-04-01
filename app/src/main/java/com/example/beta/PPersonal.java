@@ -1,13 +1,20 @@
 package com.example.beta;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -18,6 +25,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import static com.example.beta.FBref.refUsersP;
 
@@ -44,12 +52,12 @@ public class PPersonal extends AppCompatActivity {
         tvPDes = (TextView) findViewById(R.id.tvPDes);
         lvK = (ListView) findViewById(R.id.lvK);
 
+        adp =new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, kidBdayList);
+        lvK.setAdapter(adp);
+
         /*(Intent gi=getIntent();
         newuser=gi.getBooleanExtra("newuser",false);
         refUsersP.addListenerForSingleValueEvent(VELUpdateSNum);*/
-
-        adp=new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item,kidBdayList);
-        lvK.setAdapter(adp);
     }
 
     private void updatePDUI(FirebaseUser currentUser){
@@ -139,11 +147,130 @@ public class PPersonal extends AppCompatActivity {
     }
 
     public void AddKidsNum(View view) {
+        android.app.AlertDialog.Builder adb = new android.app.AlertDialog.Builder(this);
+        adb.setMessage(" ");
+
+        DatePicker picker = new DatePicker(this);
+        picker.setCalendarViewShown(false);
+
+        adb.setTitle("Add your kid's birth day");
+        adb.setView(picker);
+        adb.setView(picker);
+
+        adb.setPositiveButton("set", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String strDate = "" + picker.getDayOfMonth() + "/" + (picker.getMonth() + 1) + "/" + picker.getYear();
+                int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+                int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+                int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+                int currentDate = Calendar.getInstance().get(Calendar.DATE);
+
+                if (((currentYear - picker.getYear()) < 0))
+                    Toast.makeText(PPersonal.this, "Date Picked is Invalid", Toast.LENGTH_LONG).show();
+                else {
+                    if (((currentYear - picker.getYear()) == 0)  && (currentMonth- picker.getMonth()<6))
+                        Toast.makeText(PPersonal.this, "Date Picked is Invalid", Toast.LENGTH_LONG).show();
+                    else {
+                        if ((currentYear - picker.getYear() == 1) && (12 + (currentMonth - 6) <= picker.getMonth()))
+                            Toast.makeText(PPersonal.this, "Date Picked is Invalid", Toast.LENGTH_LONG).show();
+                        else {
+                            kidBdayList.add(strDate);
+                            adp.notifyDataSetChanged();
+                            refUsersP.child(uidP).child("kidsBday").setValue(kidBdayList);
+                        }
+                    }
+
+                }
+            }
+        });
+
+        adb.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        android.app.AlertDialog ad=adb.create();
+        ad.show();
     }
 
     public void descriptionChnge(View view) {
+        AlertDialog.Builder adDes;
+        adDes=new AlertDialog.Builder(this);
+
+        FirebaseUser user = mPRAuth.getCurrentUser();
+        uidP = user.getUid();
+
+
+        adDes.setTitle("Change Description");
+        final EditText et=new EditText(this);
+        et.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        et.setSingleLine(false);
+        et.setText(tvPDes.getText());
+
+        adDes.setView(et);
+        adDes.setPositiveButton("set", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if((et.length()<100)&&(et.length()>20)) {
+                    tvPDes.setText(et.getText());
+                    refUsersP.child(uidP).child("pdesc").setValue(tvPDes.getText().toString());
+                }
+                else
+                    Toast.makeText(PPersonal.this, "description must be between 20-100 chars", Toast.LENGTH_LONG).show();
+                //    Toast.makeText(this, "description must be under 100 char", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+        adDes.setNeutralButton("cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        
+        adDes.setNegativeButton("clear all", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                adDes.setCancelable(false);
+                et.setText("");
+              //  et.toString().replace(et.toString()," ");
+            }
+        });
+
+        AlertDialog adk=adDes.create();
+        adk.show();
     }
 
     public void AddressChnge(View view) {
+        AlertDialog.Builder adAdd;
+        adAdd=new AlertDialog.Builder(this);
+
+        FirebaseUser user = mPRAuth.getCurrentUser();
+        uidP = user.getUid();
+
+        adAdd.setTitle("Change Your Address");
+        final EditText et=new EditText(this);
+        adAdd.setView(et);
+        adAdd.setPositiveButton("set", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                tvPAdd.setText(et.getText());
+                refUsersP.child(uidP).child("paddress").setValue(tvPAdd.getText().toString());
+            }
+        });
+        adAdd.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog adk=adAdd.create();
+        adk.show();
     }
 }
