@@ -123,8 +123,8 @@ public class BDetails extends AppCompatActivity {
             refUsersB.child(Buid).child("description").setValue(BDes);
             // Sign in success, update UI with the signed-in user's information
             //   Log.d(TAG, "createUserWithEmail:success");
-            if(etBDes.length()>50)
-                etBDes.setError("Description Is Too Long");
+            if((etBDes.length()>=100)||(etBDes.length()<20))
+                etBDes.setError("Description must be between 20-100 chars");
             else{
             Intent si = new Intent(BDetails.this, BMain.class);
             startActivity(si);

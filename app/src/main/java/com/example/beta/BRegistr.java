@@ -220,7 +220,7 @@ public class BRegistr extends AppCompatActivity {
                                                 editor.commit();
                                                 Log.d("BRegistr", "signinUserWithEmail:success");
                                                 Toast.makeText(BRegistr.this, "Login Success", Toast.LENGTH_SHORT).show();
-                                                Intent si = new Intent(BRegistr.this, BMain.class);
+                                                Intent si = new Intent(BRegistr.this, BPersonal.class);
                                                 si.putExtra("UserB", false);
                                                 startActivity(si);
                                                 finish();

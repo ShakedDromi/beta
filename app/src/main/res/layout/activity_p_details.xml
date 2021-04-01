@@ -139,7 +139,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="45"
                 android:onClick="connectP"
-                android:text="connect" />
+                android:text="continue" />
 
             <Space
                 android:layout_width="0dp"

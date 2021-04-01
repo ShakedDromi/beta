@@ -22,14 +22,14 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="7.5"/>
+            android:layout_weight="6"/>
 
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:autoSizeTextType="uniform"
-            android:text="connection"
+            android:text="fill in your details"
             android:textSize="30dp"
             android:textStyle="bold"
             android:layout_weight="10" />
@@ -39,19 +39,34 @@
             android:layout_height="0dp"
             android:layout_weight="3"/>
 
-        <EditText
-            android:id="@+id/etBName"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:hint="name"
-            android:inputType="textPersonName"
-            android:layout_weight="10" />
+            android:orientation="horizontal"
+            android:layout_weight="10">
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"/>
+            <EditText
+                android:id="@+id/etBName"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:hint="name"
+                android:inputType="textPersonName"
+                android:layout_weight="60" />
 
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="10" />
+
+            <ImageView
+                android:id="@+id/IView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="30"
+                app:srcCompat="@android:drawable/ic_menu_slideshow" />
+
+        </LinearLayout>
 
         <Space
             android:layout_width="match_parent"
@@ -83,30 +98,18 @@
             android:layout_height="0dp"
             android:layout_weight="3"/>
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:srcCompat="@android:drawable/ic_menu_slideshow"
-            android:layout_weight="10"/>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"/>
-
         <EditText
             android:id="@+id/etBDes"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:hint="description"
             android:inputType="textPersonName"
-            android:layout_weight="10"/>
+            android:layout_weight="23"/>
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="7.5"/>
+            android:layout_weight="3"/>
 
         <CheckBox
             android:id="@+id/checkBox"
@@ -157,7 +160,7 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="7.5"/>
+            android:layout_weight="6"/>
 
     </LinearLayout>
 

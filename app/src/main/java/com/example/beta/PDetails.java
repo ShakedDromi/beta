@@ -152,10 +152,9 @@ public class PDetails extends AppCompatActivity {
                 refUsersP.child(Puid).child("kidsBday").setValue(kidsBday);
             }
 
-            if(etPDes.length()>=100)
-                etPDes.setError("Description Is Too Long");
+            if((etPDes.length()>=100)||(etPDes.length()<20))
+                etPDes.setError("Description must be between 20-100 chars");
             else{
-
             Intent si = new Intent(PDetails.this, PPersonal.class);
             startActivity(si);
             finish();}
