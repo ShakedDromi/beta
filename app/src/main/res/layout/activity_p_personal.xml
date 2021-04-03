@@ -11,12 +11,12 @@
     <Space
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="5" />
+        android:layout_weight="4" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="90"
+        android:layout_weight="92"
         android:orientation="vertical">
 
         <Space
@@ -50,7 +50,7 @@
                 android:id="@+id/tvParentsMail"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="60"
+                android:layout_weight="65"
                 android:text=""
                 android:gravity="center_vertical"
                 android:textColor="#000000"
@@ -59,7 +59,7 @@
             <Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="10" />
+                android:layout_weight="5" />
 
             <ImageView
                 android:id="@+id/IView"
@@ -181,13 +181,13 @@
             <Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="10" />
+                android:layout_weight="5" />
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_weight="30">
+                android:layout_weight="35">
 
                 <Space
                     android:layout_width="match_parent"
@@ -225,6 +225,6 @@
     <Space
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="5" />
+        android:layout_weight="4" />
 
 </LinearLayout>

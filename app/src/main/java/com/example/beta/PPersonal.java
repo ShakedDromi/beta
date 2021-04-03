@@ -5,8 +5,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -272,5 +275,29 @@ public class PPersonal extends AppCompatActivity {
 
         AlertDialog adk=adAdd.create();
         adk.show();
+
     }
+
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    /**
+     * this function gets the user's choice from the menu and sends him to the appropriate activity
+     * @param item
+     * @return
+     */
+    public boolean onOptionsItemSelected (MenuItem item){
+        String st = item.getTitle().toString();
+        if (st.equals("Job Offer")) {
+            Intent si = new Intent(PPersonal.this, JobOffer.class);
+            startActivity(si);
+        }
+        return true;
+    }
+
+
+
 }

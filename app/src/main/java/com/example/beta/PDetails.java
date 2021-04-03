@@ -32,8 +32,6 @@ public class PDetails extends AppCompatActivity {
     EditText etPName,etPAdd,etPDes;
     private FirebaseAuth mPDAuth;
     Boolean  PDisUID=false;
-
-    TextView tvPbday;
     ListView lv;
     ArrayAdapter<String> adapter;
 
