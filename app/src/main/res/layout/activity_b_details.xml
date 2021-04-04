@@ -73,14 +73,11 @@
             android:layout_height="0dp"
             android:layout_weight="3"/>
 
-        <EditText
-            android:id="@+id/etBAdd"
+        <Spinner
+            android:id="@+id/spPlacesB"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:hint="address"
-            android:inputType="textPersonName"
-            android:layout_weight="10"/>
-
+            android:layout_weight="10" />
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -103,21 +100,15 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:hint="description"
-            android:inputType="textPersonName"
+            android:gravity="start|top"
+            android:textSize="18sp"
+            android:inputType="textMultiLine"
             android:layout_weight="23"/>
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"/>
-
-        <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:visibility="gone"
-            android:text="stay connected" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -141,19 +132,8 @@
             <Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="10"/>
+                android:layout_weight="55"/>
 
-            <TextView
-                android:id="@+id/tvRegister"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="35"
-                android:textColor="#000000"/>
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="10"/>
 
         </LinearLayout>
 

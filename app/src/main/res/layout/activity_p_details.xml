@@ -39,13 +39,35 @@
             android:layout_height="0dp"
             android:layout_weight="3" />
 
-        <EditText
-            android:id="@+id/etPName"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="7"
-            android:hint="name"
-            android:inputType="textPersonName" />
+            android:orientation="horizontal"
+            android:layout_weight="10">
+
+            <EditText
+                android:id="@+id/etPName"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="60"
+                android:hint="name"
+                android:inputType="textPersonName" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="10" />
+
+            <ImageView
+                android:id="@+id/IView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="30"
+                app:srcCompat="@android:drawable/ic_menu_slideshow" />
+
+        </LinearLayout>
+
 
         <Space
             android:layout_width="match_parent"
@@ -53,13 +75,11 @@
             android:layout_weight="3" />
 
 
-        <EditText
-            android:id="@+id/etPAdd"
+        <Spinner
+            android:id="@+id/spPlaces"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="7"
-            android:hint="address"
-            android:inputType="textPersonName" />
+            android:layout_weight="10" />
 
         <Space
             android:layout_width="match_parent"
@@ -69,7 +89,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="15"
+            android:layout_weight="18"
             android:orientation="horizontal">
 
             <Button
@@ -105,21 +125,10 @@
             android:layout_height="0dp"
             android:ems="10"
             android:gravity="start|top"
-            android:layout_weight="14"
+            android:layout_weight="15"
+            android:textSize="18sp"
             android:hint="description"
             android:inputType="textMultiLine" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3" />
-
-        <ImageView
-            android:id="@+id/IView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="7"
-            app:srcCompat="@android:drawable/ic_menu_slideshow" />
 
         <Space
             android:layout_width="match_parent"
@@ -132,26 +141,23 @@
             android:layout_weight="10"
             android:orientation="horizontal">
 
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="10"/>
 
             <Button
                 android:id="@+id/btnC"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="45"
+                android:layout_weight="35"
                 android:onClick="connectP"
                 android:text="continue" />
 
             <Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="10" />
-
-            <TextView
-                android:id="@+id/tvRegisterP"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="45"
-                android:textColor="#000000" />
+                android:layout_weight="55" />
 
 
         </LinearLayout>

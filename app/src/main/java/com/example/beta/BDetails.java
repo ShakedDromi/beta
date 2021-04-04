@@ -1,5 +1,6 @@
 package com.example.beta;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -8,29 +9,40 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
+import static com.example.beta.FBref.refPlaces;
 import static com.example.beta.FBref.refUsersB;
 
 public class BDetails extends AppCompatActivity {
     String BName="", BAdd="", BDes="", Buid="", date="";
-    EditText etBName,etBAdd,etBDes;
+    EditText etBName,etBDes;
     private FirebaseAuth mBDAuth;
     Boolean  BDisUID=false;
     TextView tvBDate;
     DatePickerDialog.OnDateSetListener mDateSetListener;
     //public static FirebaseDatabase BDFBDB = FirebaseDatabase.getInstance();
     //public static DatabaseReference refUserB= BDFBDB.getReference("UserB");
+
+    Spinner spPlacesB;
+    List<String> placesB = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,15 +53,15 @@ public class BDetails extends AppCompatActivity {
         give each UI variable a value
          */
         etBName=(EditText)findViewById(R.id.etBName);
-        etBAdd=(EditText)findViewById(R.id.etBAdd);
+        spPlacesB =(Spinner) findViewById(R.id.spPlacesB);
         etBDes=(EditText)findViewById(R.id.etBDes);
         tvBDate=(TextView)findViewById(R.id.tvBDate);
         mBDAuth = FirebaseAuth.getInstance();
 
 
         /**
-        * date picker - in order to choose the user's birth day (to know his age).
-        */
+         * date picker - in order to choose the user's birth day (to know his age).
+         */
         tvBDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,6 +95,30 @@ public class BDetails extends AppCompatActivity {
                     Toast.makeText(BDetails.this, "The Minimal Age For Using This App Is 13", Toast.LENGTH_SHORT).show();
             }
         };
+
+        /**
+         * this function uploads the information from the firebase tree - Places - to a spinner
+         * using the reference - refPlaces and a Value event listener.
+         */
+        refPlaces.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot ds) {
+                placesB.clear();
+
+                for (DataSnapshot data : ds.getChildren()){
+                    String info=data.getValue().toString();
+                    placesB.add(info);
+                }
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(BDetails.this, android.R.layout.simple_spinner_item, placesB);
+                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spPlacesB.setAdapter(arrayAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(BDetails.this, databaseError.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
@@ -98,7 +134,7 @@ public class BDetails extends AppCompatActivity {
      */
     public void connectB(View view) {
         BName=etBName.getText().toString();
-        BAdd=etBAdd.getText().toString();
+        BAdd= spPlacesB.getSelectedItem().toString();
         BDes=etBDes.getText().toString();
 
         FirebaseUser user = mBDAuth.getCurrentUser();
@@ -106,29 +142,22 @@ public class BDetails extends AppCompatActivity {
 
         updatePDUI(user);
 
-        if (BName.isEmpty()||BAdd.isEmpty()||BDes.isEmpty()||date.isEmpty()){
+        if (BName.isEmpty()||BAdd.equals("Choose Neighborhood")||BDes.isEmpty()||date.isEmpty()){
             Toast.makeText(this, "please fill all the necessary details", Toast.LENGTH_SHORT).show();
         }
         else {
-            refUsersB.child(Buid).child("name").removeValue();
             refUsersB.child(Buid).child("name").setValue(BName);
-
-            refUsersB.child(Buid).child("address").removeValue();
             refUsersB.child(Buid).child("address").setValue(BAdd);
-
-            refUsersB.child(Buid).child("birthDate").removeValue();
             refUsersB.child(Buid).child("birthDate").setValue(date);
-
-            refUsersB.child(Buid).child("description").removeValue();
             refUsersB.child(Buid).child("description").setValue(BDes);
             // Sign in success, update UI with the signed-in user's information
             //   Log.d(TAG, "createUserWithEmail:success");
             if((etBDes.length()>=100)||(etBDes.length()<20))
                 etBDes.setError("Description must be between 20-100 chars");
             else{
-            Intent si = new Intent(BDetails.this, BMain.class);
-            startActivity(si);
-            finish();
+                Intent si = new Intent(BDetails.this, BMain.class);
+                startActivity(si);
+                finish();
             }
         }
 

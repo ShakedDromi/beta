@@ -8,9 +8,11 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,8 +24,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
+import static com.example.beta.FBref.refPlaces;
 import static com.example.beta.FBref.refUsersB;
 import static com.example.beta.FBref.refUsersP;
 
@@ -33,6 +38,9 @@ public class BPersonal extends AppCompatActivity {
     UserB userB;
     String uidB;
     private FirebaseAuth mBRAuth;
+
+    Spinner spPlaceB;
+    List<String> placesB = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +52,35 @@ public class BPersonal extends AppCompatActivity {
         tvAddB = (TextView) findViewById(R.id.tvAddB);
         tvDesB = (TextView) findViewById(R.id.tvDesB);
         tvDateB = (TextView) findViewById(R.id.tvDateB);
+        spPlaceB = (Spinner) findViewById(R.id.spPlaceB);
 
+
+
+        /**
+         * this function uploads the information from the firebase tree - Places - to a spinner
+         * using the reference - refPlaces and a Value event listener.
+         */
+        refPlaces.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot ds) {
+                placesB.clear();
+
+                for (DataSnapshot data : ds.getChildren()){
+                    String info=data.getValue().toString();
+                    placesB.add(info);
+                }
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(BPersonal.this, android.R.layout.simple_spinner_item, placesB);
+                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spPlaceB.setAdapter(arrayAdapter);
+                //spPlaceP.setOnItemSelectedListener(new OnSpinnerItemClicked());
+                //tvPAdd.setText(spPlaceP.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(BPersonal.this, databaseError.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void updatePDUI(FirebaseUser currentUser){
@@ -61,6 +97,19 @@ public class BPersonal extends AppCompatActivity {
 
         Query query = refUsersB.orderByKey().equalTo(uidB).limitToFirst(1);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
+            class OnSpinnerItemClicked implements android.widget.AdapterView.OnItemSelectedListener {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    refUsersP.child(uidB).child("address").setValue(parent.getItemAtPosition(position).toString());
+                    tvAddB.setText(parent.getItemAtPosition(position).toString());
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            }
+
             @Override
             public void onDataChange(@NonNull DataSnapshot DS) {
                 // UserP userp = new UserP();
@@ -72,6 +121,7 @@ public class BPersonal extends AppCompatActivity {
                     tvDesB.setText(userB.getDescription());
                     tvDateB.setText(userB.getBirthDate());
                 }
+                spPlaceB.setOnItemSelectedListener(new OnSpinnerItemClicked());
             }
 
             @Override
