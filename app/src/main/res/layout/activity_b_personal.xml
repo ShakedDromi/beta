@@ -81,31 +81,23 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="horizontal"
-            android:layout_weight="10">
+            android:layout_weight="9">
 
             <TextView
                 android:id="@+id/tvAddB"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="60"
+                android:layout_weight="35"
                 android:text=""
                 android:gravity="center_vertical"
                 android:textColor="#000000"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
-            <Space
+            <Spinner
+                android:id="@+id/spPlaceB"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="10" />
-
-            <Button
-                android:id="@+id/btnAddrChngeB"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="30"
-                android:textSize="12sp"
-                android:onClick="AddressChngeB"
-                android:text="change address" />
+                android:layout_weight="65"/>
 
         </LinearLayout>
 

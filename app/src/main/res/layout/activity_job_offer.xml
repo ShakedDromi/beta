@@ -70,7 +70,7 @@
                     android:layout_weight="5" />
 
                 <Button
-                    android:id="@+id/btnSetDate"
+                    android:id="@+id/btnsetDate"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="35"
@@ -202,28 +202,76 @@
                 android:layout_height="0dp"
                 android:layout_weight="15"/>
 
-            <EditText
-                android:id="@+id/etBPayment"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:hint="Payment"
-                android:inputType="number"
-                android:layout_weight="10"
-                android:visibility="invisible"/>
+                android:orientation="horizontal"
+                android:layout_weight="10">
+
+                <TextView
+                    android:id="@+id/tvBPayment"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:hint="Payment"
+                    android:inputType="number"
+                    android:layout_weight="60"
+                    android:gravity="center_vertical"
+                    android:textColor="#000000"
+                    android:textSize="18sp"/>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5" />
+
+                <Button
+                    android:id="@+id/btnsetPayment"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="35"
+                    android:textSize="12sp"
+                    android:onClick="setPayment"
+                    android:text="set date" />
+
+            </LinearLayout>
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="5"/>
 
-            <EditText
-                android:id="@+id/etBNote"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:hint="Notes"
-                android:inputType="textImeMultiLine"
-                android:layout_weight="10"
-                android:visibility="invisible"/>
+                android:orientation="horizontal"
+                android:layout_weight="10">
+
+                <EditText
+                    android:id="@+id/tvBNote"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:hint="Notes"
+                    android:inputType="textImeMultiLine"
+                    android:layout_weight="60"
+                    android:gravity="center_vertical"
+                    android:textColor="#000000"
+                    android:textSize="18sp"/>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5" />
+
+                <Button
+                    android:id="@+id/btnsetNotes"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="35"
+                    android:textSize="12sp"
+                    android:onClick="setNotes"
+                    android:text="set date" />
+
+            </LinearLayout>
 
             <Space
                 android:layout_width="match_parent"

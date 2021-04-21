@@ -75,13 +75,11 @@
             android:layout_weight="3" />
 
 
-        <EditText
-            android:id="@+id/etPAdd"
+        <Spinner
+            android:id="@+id/spPlaces"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="10"
-            android:hint="address"
-            android:inputType="textPersonName" />
+            android:layout_weight="10" />
 
         <Space
             android:layout_width="match_parent"

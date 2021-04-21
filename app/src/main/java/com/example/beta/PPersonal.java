@@ -11,11 +11,13 @@ import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +31,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
+import static com.example.beta.FBref.refPlaces;
 import static com.example.beta.FBref.refUsersP;
 
 public class PPersonal extends AppCompatActivity {
@@ -43,6 +47,9 @@ public class PPersonal extends AppCompatActivity {
   //  Boolean newuser;
     private FirebaseAuth mPRAuth;
 
+    Spinner spPlaceP;
+    List<String> places = new ArrayList<String>();
+
 
 
     @Override
@@ -52,8 +59,10 @@ public class PPersonal extends AppCompatActivity {
         tvTitll = (TextView) findViewById(R.id.tvTitll);
         tvPMail = (TextView) findViewById(R.id.tvParentsMail);
         tvPAdd = (TextView) findViewById(R.id.tvPAdd);
+        spPlaceP = (Spinner) findViewById(R.id.spPlaceP);
         tvPDes = (TextView) findViewById(R.id.tvPDes);
         lvK = (ListView) findViewById(R.id.lvK);
+
 
         adp =new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, kidBdayList);
         lvK.setAdapter(adp);
@@ -61,6 +70,33 @@ public class PPersonal extends AppCompatActivity {
         /*(Intent gi=getIntent();
         newuser=gi.getBooleanExtra("newuser",false);
         refUsersP.addListenerForSingleValueEvent(VELUpdateSNum);*/
+
+
+        /**
+         * this function uploads the information from the firebase tree - Places - to a spinner
+         * using the reference - refPlaces and a Value event listener.
+         */
+        refPlaces.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot ds) {
+                places.clear();
+
+                for (DataSnapshot data : ds.getChildren()){
+                    String info=data.getValue().toString();
+                    places.add(info);
+                }
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(PPersonal.this, android.R.layout.simple_spinner_item, places);
+                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spPlaceP.setAdapter(arrayAdapter);
+                //spPlaceP.setOnItemSelectedListener(new OnSpinnerItemClicked());
+                //tvPAdd.setText(spPlaceP.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(PPersonal.this, databaseError.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void updatePDUI(FirebaseUser currentUser){
@@ -99,6 +135,8 @@ public class PPersonal extends AppCompatActivity {
 
         Query query = refUsersP.orderByKey().equalTo(uidP).limitToFirst(1);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
+
+
             @Override
             public void onDataChange(@NonNull DataSnapshot DS) {
                // UserP userp = new UserP();
@@ -109,13 +147,49 @@ public class PPersonal extends AppCompatActivity {
                     tvPAdd.setText(UserP.getpaddress());
                     tvPDes.setText(UserP.getpdesc());
                 }
+
+                spPlaceP.setOnItemSelectedListener(new OnSpinnerItemClicked());
+                //tvPAdd.setText(UserP.getpaddress());
+                //tvPAdd.setText(spPlaceP.getSelectedItem().toString());
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+            class OnSpinnerItemClicked implements AdapterView.OnItemSelectedListener {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    refUsersP.child(uidP).child("paddress").setValue(parent.getItemAtPosition(position).toString());
+                    tvPAdd.setText(parent.getItemAtPosition(position).toString());
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            }
         });
+
+
+       /* AdapterView.OnItemSelectedListener onItemSelectedListener1 =
+                new AdapterView.OnItemSelectedListener() {
+
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        refUsersP.child(uidP).child("paddress").setValue(parent.getItemAtPosition(position).toString());
+
+                        Toast.makeText(parent.getContext(), "Clicked : " +
+                                parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+
+                        //tvPAdd.setText(UserP.getpaddress());
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                };*/
 
         /*
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("UserP");
@@ -150,6 +224,7 @@ public class PPersonal extends AppCompatActivity {
     }
 
     public void AddKidsNum(View view) {
+
         android.app.AlertDialog.Builder adb = new android.app.AlertDialog.Builder(this);
         adb.setMessage(" ");
 
@@ -249,36 +324,6 @@ public class PPersonal extends AppCompatActivity {
         adk.show();
     }
 
-    public void AddressChnge(View view) {
-        AlertDialog.Builder adAdd;
-        adAdd=new AlertDialog.Builder(this);
-
-        FirebaseUser user = mPRAuth.getCurrentUser();
-        uidP = user.getUid();
-
-        adAdd.setTitle("Change Your Address");
-        final EditText et=new EditText(this);
-        adAdd.setView(et);
-        adAdd.setPositiveButton("set", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                tvPAdd.setText(et.getText());
-                refUsersP.child(uidP).child("paddress").setValue(tvPAdd.getText().toString());
-            }
-        });
-        adAdd.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        AlertDialog adk=adAdd.create();
-        adk.show();
-
-    }
-
-
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
@@ -293,6 +338,10 @@ public class PPersonal extends AppCompatActivity {
         String st = item.getTitle().toString();
         if (st.equals("Job Offer")) {
             Intent si = new Intent(PPersonal.this, JobOffer.class);
+            startActivity(si);
+        }
+        if (st.equals("BMain")) {
+            Intent si = new Intent(PPersonal.this, BMain.class);
             startActivity(si);
         }
         return true;

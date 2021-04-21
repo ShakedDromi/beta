@@ -3,4 +3,7 @@
 
     <item android:title="Job Offer"
         android:id="@+id/joboffer"/>
+
+    <item android:title="BMain"
+        android:id="@+id/bmain"/>
 </menu>

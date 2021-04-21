@@ -6,7 +6,7 @@ package com.example.beta;
  * contains all of the data required for a job offer.
  */
 public class OfferJob {
-    private String date, time, description, note, uid;
+    private String date, time, description, note, uidJP, uidJB;
     private int payment;
 
     /**
@@ -23,15 +23,17 @@ public class OfferJob {
      * @param time
      * @param description
      * @param note
-     * @param uid
+     * @param uidJP
+     * @param uidJB
      * @param payment
      */
-    public OfferJob(String date, String time, String description, String note, String uid, int payment){
+    public OfferJob(String date, String time, String description, String note, String uidJP, String uidJB, int payment){
         this.date=date;
         this.time=time;
         this.description=description;
         this.note=note;
-        this.uid=uid;
+        this.uidJP=uidJP;
+        this.uidJB=uidJB;
         this.payment=payment;
     }
 
@@ -47,8 +49,11 @@ public class OfferJob {
     public String getNote(){return note;}
     public void setNote(String note){this.note=note;}
 
-    public String getUid(){return uid;}
-    public void setUid(String uid){this.uid=uid;}
+    public String getUidJP(){return uidJP;}
+    public void setUidJP(String uidJP){this.uidJP=uidJP;}
+
+    public String getUidJB(){return uidJB;}
+    public void setUidJB(String uidJB){this.uidJB=uidJB;}
 
     public int getPayment(){return payment;}
     public void setPayment(int payment){this.payment=payment;}
