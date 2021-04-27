@@ -8,16 +8,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class MyAdapter extends ArrayAdapter<String> {
     Context context;
-    String rTitle[];
-    String rDescription[];
-    int rImgs[];
+    ArrayList<String> rTitle;
+    ArrayList<String> rDescription;
+    ArrayList<Integer> rImgs;
 
-    MyAdapter(Context c, String title[], String description[], int imgs[]){
+    MyAdapter(Context c, ArrayList<String> title, ArrayList<String> description, ArrayList<Integer> imgs){
         super(c, R.layout.row, R.id.textView1, title);
         this.context=c;
         this.rTitle=title;
@@ -34,9 +36,9 @@ public class MyAdapter extends ArrayAdapter<String> {
         TextView myTitle= row.findViewById(R.id.textView1);
         TextView myDescription= row.findViewById(R.id.textView2);
 
-        images.setImageResource(rImgs[position]);
-        myTitle.setText(rTitle[position]);
-        myDescription.setText(rDescription[position]);
+        images.setImageResource(rImgs.get(position));
+        myTitle.setText(rTitle.get(position));
+        myDescription.setText(rDescription.get(position));
 
         return row;
     }

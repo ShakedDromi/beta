@@ -42,6 +42,7 @@ public class PDetails extends AppCompatActivity {
     Boolean  PDisUID=false;
     ListView lv;
     ArrayAdapter<String> adapter;
+    int x=0;
 
     DatePickerDialog.OnDateSetListener mDateSetListener;
 
@@ -109,6 +110,7 @@ public class PDetails extends AppCompatActivity {
         adb.setPositiveButton("set", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
                 String strDate = "" + picker.getDayOfMonth() + "/" + (picker.getMonth() + 1) + "/" + picker.getYear();
                 int currentYear = Calendar.getInstance().get(Calendar.YEAR);
                 int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
@@ -132,7 +134,7 @@ public class PDetails extends AppCompatActivity {
                     else {
                         if ((currentYear - picker.getYear() == 1) && (12 + (currentMonth - 6) <= picker.getMonth()))
                             Toast.makeText(PDetails.this, "Date Picked is Invalid", Toast.LENGTH_LONG).show();
-                        else {
+                        else {x++;
                             kidsBday.add(strDate);
                             adapter.notifyDataSetChanged();
                         }
@@ -186,6 +188,7 @@ public class PDetails extends AppCompatActivity {
                     refUsersP.child(Puid).child("pname").setValue(PName);
                     refUsersP.child(Puid).child("paddress").setValue(PAdd);
                     refUsersP.child(Puid).child("pdesc").setValue(PDes);
+                    refUsersP.child(Puid).child("pknum").setValue(x);
             }
             Intent si = new Intent(PDetails.this, PPersonal.class);
             startActivity(si);

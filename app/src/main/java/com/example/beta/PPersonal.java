@@ -47,6 +47,8 @@ public class PPersonal extends AppCompatActivity {
     //  Boolean newuser;
     private FirebaseAuth mPRAuth;
 
+    int nn=0;
+
     Spinner spPlaceP;
     List<String> places = new ArrayList<String>();
 
@@ -147,6 +149,7 @@ public class PPersonal extends AppCompatActivity {
                     tvPAdd.setText(UserP.getpaddress());
                     tvPDes.setText(UserP.getpdesc());
                 }
+
 
                 spPlaceP.setOnItemSelectedListener(new OnSpinnerItemClicked());
                 //tvPAdd.setText(UserP.getpaddress());
@@ -253,6 +256,8 @@ public class PPersonal extends AppCompatActivity {
                         if ((currentYear - picker.getYear() == 1) && (12 + (currentMonth - 6) <= picker.getMonth()))
                             Toast.makeText(PPersonal.this, "Date Picked is Invalid", Toast.LENGTH_LONG).show();
                         else {
+                            nn=UserP.getPknum();
+                            refUsersP.child(uidP).child("pknum").setValue(nn++);
                             kidBdayList.add(strDate);
                             adp.notifyDataSetChanged();
                             refUsersP.child(uidP).child("kidsBday").setValue(kidBdayList);
