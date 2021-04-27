@@ -32,7 +32,6 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
     String mDescription[]= {"facebook description","whatsapp description","twitter description","instagram description"};
     int images[]={R.drawable.facebook, R.drawable.whatsapp, R.drawable.twitter, R.drawable.instagram11};
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
