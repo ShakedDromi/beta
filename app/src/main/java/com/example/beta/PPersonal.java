@@ -44,7 +44,7 @@ public class PPersonal extends AppCompatActivity {
     ListView lvK;
     ArrayList<String> kidBdayList = new ArrayList<String>();
     ArrayAdapter<String> adp;
-  //  Boolean newuser;
+    //  Boolean newuser;
     private FirebaseAuth mPRAuth;
 
     Spinner spPlaceP;
@@ -139,7 +139,7 @@ public class PPersonal extends AppCompatActivity {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot DS) {
-               // UserP userp = new UserP();
+                // UserP userp = new UserP();
                 for (DataSnapshot data: DS.getChildren()) {
                     UserP = data.getValue(UserP.class);
                     tvTitll.setText("Hi," + UserP.getpname() + "!");
@@ -218,7 +218,7 @@ public class PPersonal extends AppCompatActivity {
         // PPAss=user.get
         updatePDUI(user);
 
-      //  refUsersP.child(uidP).child("pname").removeValue();
+        //  refUsersP.child(uidP).child("pname").removeValue();
 
 
     }
@@ -310,13 +310,13 @@ public class PPersonal extends AppCompatActivity {
                 dialog.cancel();
             }
         });
-        
+
         adDes.setNegativeButton("clear all", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 adDes.setCancelable(false);
                 et.setText("");
-              //  et.toString().replace(et.toString()," ");
+                //  et.toString().replace(et.toString()," ");
             }
         });
 
