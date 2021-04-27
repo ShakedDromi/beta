@@ -16,9 +16,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.ArrayList;
+
 public class BMain extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     ListView lV2;
+
+    //ArrayList<String> kidBdayList = new ArrayList<String>();
+    //ArrayAdapter<String> adp;
+    //private FirebaseAuth mPRAuth;
+
     String mTitle[]= {"facebook", "whatsapp", "twitter", "instagram"};
     String mDescription[]= {"facebook description","whatsapp description","twitter description","instagram description"};
     int images[]={R.drawable.facebook, R.drawable.whatsapp, R.drawable.twitter, R.drawable.instagram11};
@@ -31,6 +40,9 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
 
         lV2 = (ListView) findViewById(R.id.lV2);
 
+       /* adp =new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, kidBdayList);
+        lV2.setAdapter(adp);
+*/
 
 
         MyAdapter myadp = new MyAdapter(this, mTitle, mDescription, images);
