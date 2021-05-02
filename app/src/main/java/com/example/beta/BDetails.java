@@ -153,7 +153,7 @@ public class BDetails extends AppCompatActivity {
             if((etBDes.length()>=100)||(etBDes.length()<20))
                 etBDes.setError("Description must be between 20-100 chars");
             else{
-            Intent si = new Intent(BDetails.this, BMain.class);
+            Intent si = new Intent(BDetails.this, BPersonal.class);
             startActivity(si);
             finish();
             }
