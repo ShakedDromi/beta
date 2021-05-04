@@ -19,11 +19,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import static com.example.beta.FBref.refJobOffer;
 import static com.example.beta.FBref.refUsersB;
 import static com.example.beta.FBref.refUsersP;
 
@@ -32,15 +34,19 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
     ListView lV2;
     UserB userB;
     String stplace="";
-    String uidB;
-    private FirebaseAuth mBRAuth;
+    int bPrice=0;
+    String uidB,uidp;
+    private FirebaseAuth mBRAuth, mPDAuth;
+    ArrayAdapter<String> adapter;
 
     TextView tvname, tvnum, tvage, tvdes;
 
-    ArrayList<String> names = new ArrayList<>();
-    ArrayList<String> mails = new ArrayList<>();
+    ArrayList<String> date = new ArrayList<>();
+    ArrayList<String> time = new ArrayList<>();
     ArrayList<Integer> images = new ArrayList<>();
     ArrayList<UserP> usersP = new ArrayList<>();
+    ArrayList<propose> proposeB = new ArrayList<>();
+
 
     //ArrayList<String> kidBdayList = new ArrayList<String>();
     //ArrayAdapter<String> adp;
@@ -67,6 +73,7 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
        /* adp =new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, kidBdayList);
         lV2.setAdapter(adp);
 */
+
 
 
 
@@ -102,26 +109,27 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
                 }
             });
 
-            //updatePDUI(user);
 
             ValueEventListener pListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dS) {
-                names.clear();
-                mails.clear();
+                date.clear();
+                time.clear();
                 for(DataSnapshot data : dS.getChildren()) {
                     UserP uP = data.getValue(UserP.class);
+                    OfferJob jobOff = data.getValue(OfferJob.class);
                     if (uP.getpaddress().equals(stplace)){
-                        mails.add(uP.getpmail());
-                        names.add(uP.getpname());
+                        time.add(jobOff.getTime());
+                        date.add(jobOff.getDate());
                         images.add(R.drawable.facebook);
                         usersP.add(uP);
+                        uidp=uP.getpuid();
                     }
 
                 }
                 //adp = new ArrayAdapter<String>(StuDisAct.this,R.layout.support_simple_spinner_dropdown_item, names);
                 //lV2.setAdapter(adp);
-                MyAdapter myadp = new MyAdapter(BMain.this, names, mails, images);
+                MyAdapter myadp = new MyAdapter(BMain.this, date, time, images);
 
                 //MyAdapter adapter= new MyAdapter(BMain.this, mTitle, mDescription, images);
                 lV2.setAdapter(myadp);
@@ -130,6 +138,8 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
             public void onCancelled(DatabaseError databaseError) { }
         };
         refUsersP.addListenerForSingleValueEvent(pListener);
+        //updatePDUI(user);
+
     }
 
     @Override
@@ -163,6 +173,8 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
         //tvnum.setText(usersP.get(position).getPknum());
         tvage.setText(usersP.get(position).getpmail());
         tvdes.setText(usersP.get(position).getpdesc());
+        uidp=usersP.get(position).getpuid();
+
 
 
         /*if(position==0)
@@ -198,6 +210,42 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
+                if (et.getText().toString().isEmpty())
+                    Toast.makeText(BMain.this, "Please Enter Price", Toast.LENGTH_SHORT).show();
+                else {
+                    bPrice=Integer.parseInt(et.getText().toString());
+                    proposeB.clear();
+//VEL, after onDataChange add lines
+                    DatabaseReference refOfferJob = refJobOffer.child(uidp).child("propose");
+
+                    refOfferJob.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot ds) {
+                            if (ds.exists()) {
+                                for (DataSnapshot data : ds.getChildren()) {
+                                    propose pr = data.getValue(propose.class);
+                                    proposeB.add(pr);
+                                }
+                                // adp=new ArrayAdapter<String>(PPersonal.this,R.layout.lvklayout, kidBdayList);
+                                //adp = new ArrayAdapter<String>(PPersonal.this, R.layout.support_simple_spinner_dropdown_item, kidBdayList);
+                                //lvK.setAdapter(adp);
+                            }
+                            propose props = new propose(uidB,bPrice);
+                            proposeB.add(props);
+                            refJobOffer.child(uidp).child("propose").setValue(proposeB);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+                        }
+                    });
+
+
+
+                    //proposeB = refJobOffer.child(uidp).child("propose").get();
+                    //proposeB.add(et);
+
+                }
                 /*if((et.length()<100)&&(et.length()>20)) {
                     tvPDes.setText(et.getText());
                     refUsersP.child(uidP).child("pdesc").setValue(tvPDes.getText().toString());
@@ -210,6 +258,7 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
 
 
 
+
         adoffer.setNeutralButton("cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -219,5 +268,6 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
 
         AlertDialog adk=adoffer.create();
         adk.show();
+        //once she pressed "set"-- return to BfirstAct
     }
 }

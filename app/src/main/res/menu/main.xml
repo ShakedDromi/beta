@@ -6,4 +6,7 @@
 
     <item android:title="BMain"
         android:id="@+id/bmain"/>
+
+    <item android:title="BPersonal"
+        android:id="@+id/bpersonal"/>
 </menu>

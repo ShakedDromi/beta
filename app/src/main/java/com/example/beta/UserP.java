@@ -11,6 +11,7 @@ public class UserP implements Serializable {
     private String pname, ppass, pmail, paddress, pdesc, pimage, puid;
     private int pknum;
     private ArrayList<String> kidsBday;
+    private ArrayList<OfferJob> jOff;
     /**
      * an empty builder.
      * this function is not used, but is required in order to use Firebase.

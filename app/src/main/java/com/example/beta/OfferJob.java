@@ -1,13 +1,18 @@
 package com.example.beta;
 
 
+import java.util.ArrayList;
+
 /**
  * a user's job offer class
  * contains all of the data required for a job offer.
  */
 public class OfferJob {
-    private String date, time, description, note, uidJP, uidJB;
-    private int payment;
+    private String date, time, description, uidJP;
+    //private propose proposeB;
+
+    private ArrayList<propose> proposeB;
+
 
     /**
      * an empty builder.
@@ -22,19 +27,15 @@ public class OfferJob {
      * @param date
      * @param time
      * @param description
-     * @param note
      * @param uidJP
-     * @param uidJB
-     * @param payment
+     * @param proposeB
      */
-    public OfferJob(String date, String time, String description, String note, String uidJP, String uidJB, int payment){
+    public OfferJob(String date, String time, String description, String uidJP){
         this.date=date;
         this.time=time;
         this.description=description;
-        this.note=note;
         this.uidJP=uidJP;
-        this.uidJB=uidJB;
-        this.payment=payment;
+        //this.proposeB=proposeB;
     }
 
     public String getDate(){return date;}
@@ -46,16 +47,9 @@ public class OfferJob {
     public String getDescription(){return description;}
     public void setDescription(String description){this.description=description;}
 
-    public String getNote(){return note;}
-    public void setNote(String note){this.note=note;}
-
     public String getUidJP(){return uidJP;}
     public void setUidJP(String uidJP){this.uidJP=uidJP;}
 
-    public String getUidJB(){return uidJB;}
-    public void setUidJB(String uidJB){this.uidJB=uidJB;}
-
-    public int getPayment(){return payment;}
-    public void setPayment(int payment){this.payment=payment;}
-
+    //public propose getProposeB(){return proposeB;}
+    //public void setProposeB(propose proposeB){this.proposeB=proposeB;}
 }

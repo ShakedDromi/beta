@@ -96,7 +96,7 @@ public class BRegistr extends AppCompatActivity {
         super.onStart();
         SharedPreferences settings = getSharedPreferences("PREFS_NAME", MODE_PRIVATE);
         Boolean isChecked = settings.getBoolean("stayConnect", false);
-        Intent si = new Intent(BRegistr.this, BDetails.class);
+        Intent si = new Intent(BRegistr.this, BfirstAct.class);
         if ((refAuth.getCurrentUser() != null) && (isChecked)) {
             stayConnect = true;
             si.putExtra("UserB", false);
@@ -220,7 +220,7 @@ public class BRegistr extends AppCompatActivity {
                                                 editor.commit();
                                                 Log.d("BRegistr", "signinUserWithEmail:success");
                                                 Toast.makeText(BRegistr.this, "Login Success", Toast.LENGTH_SHORT).show();
-                                                Intent si = new Intent(BRegistr.this, BPersonal.class);
+                                                Intent si = new Intent(BRegistr.this, BfirstAct.class);
                                                 si.putExtra("UserB", false);
                                                 startActivity(si);
                                                 finish();
@@ -250,7 +250,7 @@ public class BRegistr extends AppCompatActivity {
                                             userBdb = new UserB("", BMail, "", "", "", "", Buid, BPass);
                                             refUsersB.child(Buid).setValue(userBdb);
                                             Toast.makeText(BRegistr.this, "Successful Registration", Toast.LENGTH_SHORT).show();
-                                            Intent si = new Intent(BRegistr.this, BDetails.class);
+                                            Intent si = new Intent(BRegistr.this, BfirstAct.class);
                                             si.putExtra("UesrB", true);
                                             startActivity(si);
                                             finish();

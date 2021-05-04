@@ -233,6 +233,10 @@ public class BPersonal extends AppCompatActivity {
             Intent si = new Intent(BPersonal.this, BMain.class);
             startActivity(si);
         }
+        if (st.equals("BPersonal")) {
+            Intent si = new Intent(BPersonal.this, BPersonal.class);
+            startActivity(si);
+        }
         return true;
     }
 
