@@ -93,8 +93,8 @@ public class JobOffer extends AppCompatActivity {
 
             OfferJob JO = new OfferJob(date, time, description, uidp);
             refJobOffer.child(uidp).setValue(JO);*/
-           // DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference("JobOffer");
-            //final String
+            DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference("JobOffer");
+            final String JPid= mDatabase.push().getKey();
 
 
 
@@ -102,7 +102,7 @@ public class JobOffer extends AppCompatActivity {
             FirebaseUser userOff = refAuth.getCurrentUser();
             uidp = userOff.getUid();
             offJob = new OfferJob(date, time, description, uidp);
-            refJobOffer.child(uidp).setValue(offJob);
+            refJobOffer.child(JPid).setValue(offJob);
 
         }
     }

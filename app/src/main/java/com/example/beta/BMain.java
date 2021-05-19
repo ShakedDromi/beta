@@ -34,12 +34,12 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
 
     ListView lV2;
     UserB userB;
-    String stplace="";
-    int bPrice=0;
-    String uidB,uidp;
+    String stplace = "";
+    int bPrice = 0;
+    String uidB, uidp, JPid;
     private FirebaseAuth mBRAuth, mPDAuth;
     ArrayAdapter<String> adapter;
-    boolean pressed= false;
+    boolean pressed = false;
 
     TextView tvname, tvnum, tvage, tvdes;
 
@@ -48,25 +48,28 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
     ArrayList<Integer> images = new ArrayList<>();
     ArrayList<UserP> usersP = new ArrayList<>();
     ArrayList<propose> proposeB = new ArrayList<>();
+    ArrayList<OfferJob> joff = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_b_main);
 
-        tvage=(TextView) findViewById(R.id.tvage);
-        tvdes=(TextView) findViewById(R.id.tvdes);
-        tvname=(TextView) findViewById(R.id.tvname);
-        tvnum=(TextView) findViewById(R.id.tvnum);
+        tvage = (TextView) findViewById(R.id.tvage);
+        tvdes = (TextView) findViewById(R.id.tvdes);
+        tvname = (TextView) findViewById(R.id.tvname);
+        tvnum = (TextView) findViewById(R.id.tvnum);
 
         lV2 = (ListView) findViewById(R.id.lV2);
         lV2.setOnItemClickListener(this);
         lV2.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
     }
 
-    private void updatePDUI(FirebaseUser currentUser){
+    private void updatePDUI(FirebaseUser currentUser) {
 
     }
+
 
     @Override
     public void onStart() {
@@ -92,7 +95,25 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
                 }
             });
 
+       // DatabaseReference refOfferJob = refJobOffer;
 
+        /*Query quer = refJobOffer.orderByChild("uidJP").equalTo(uidp);
+        quer.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot ds) {
+                if (ds.exists()) {
+                    for (DataSnapshot data : ds.getChildren()) {
+                        JPid=data.getKey();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+            }
+        });
+
+*/
             ValueEventListener pListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dS) {
@@ -101,12 +122,14 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
                 for(DataSnapshot data : dS.getChildren()) {
                     UserP uP = data.getValue(UserP.class);
                     OfferJob jobOff = data.getValue(OfferJob.class);
-                    if ((uP.getpaddress().equals(stplace))){
+                    if (uP.getpaddress().equals(stplace)){
+                        uidp=uP.getpuid();
+
                         time.add(jobOff.getTime());
                         date.add(jobOff.getDate());
                         images.add(R.drawable.facebook);
                         usersP.add(uP);
-                        uidp=uP.getpuid();
+                        joff.add(jobOff);
                     }
                 }
                 MyAdapter myadp = new MyAdapter(BMain.this, date, time, images);
@@ -118,6 +141,7 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
         refUsersP.addListenerForSingleValueEvent(pListener);
     }
 
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         pressed=true;
@@ -127,6 +151,22 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
         tvage.setText(usersP.get(position).getpmail());
         tvdes.setText(usersP.get(position).getpdesc());
         uidp=usersP.get(position).getpuid();
+
+        Query quer = refJobOffer.orderByChild("uidJP").equalTo(uidp);
+        quer.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot ds) {
+                if (ds.exists()) {
+                    for (DataSnapshot data : ds.getChildren()) {
+                        JPid=data.getKey();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+            }
+        });
     }
 
     public void offer(View view) {
@@ -150,8 +190,10 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
                         bPrice=Integer.parseInt(et.getText().toString());
                         proposeB.clear();
 //VEL, after onDataChange add lines
-                        DatabaseReference refOfferJob = refJobOffer.child(uidp).child("propose");
+                        //DatabaseReference refOfferJob = refJobOffer.getKey(JPid).child("propose");
 
+                        DatabaseReference refOfferJob = refJobOffer.child(JPid).child("propose");
+                        //Query queri = refJobOffer.orderByKey().equalTo(JPid);
                         refOfferJob.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot ds) {
@@ -166,7 +208,7 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
                                 }
                                 propose props = new propose(uidB,bPrice);
                                 proposeB.add(props);
-                                refJobOffer.child(uidp).child("propose").setValue(proposeB);
+                                refJobOffer.child(JPid).child("propose").setValue(proposeB);
                             }
 
                             @Override
