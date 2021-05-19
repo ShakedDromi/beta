@@ -129,6 +129,10 @@ public class JobOffer extends AppCompatActivity {
             offJob = new OfferJob(date, time, description, uidp, makom);
             refJobOffer.child(JPid).setValue(offJob);
 
+            Intent si = new Intent(JobOffer.this, PfirstAct.class);
+            startActivity(si);
+            finish();
+
         }
     }
 

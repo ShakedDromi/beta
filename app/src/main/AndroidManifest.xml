@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Beta">
-        <activity android:name=".BfirstAct"></activity>
+        <activity android:name=".PfirstAct"></activity>
+        <activity android:name=".BfirstAct" />
         <activity android:name=".JobOffer" />
         <activity android:name=".BPersonal" />
         <activity android:name=".PPersonal" />

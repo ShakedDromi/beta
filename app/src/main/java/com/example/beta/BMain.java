@@ -37,10 +37,8 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
     String stplace = "";
     int bPrice = 0;
     String uidB, uidp, JPid;
-    private FirebaseAuth mBRAuth, mPDAuth;
-    ArrayAdapter<String> adapter;
+    private FirebaseAuth mBRAuth;
     boolean pressed = false;
-    boolean same = false;
 
     TextView tvname, tvnum, tvage, tvdes;
 
@@ -49,7 +47,7 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
     ArrayList<Integer> images = new ArrayList<>();
     ArrayList<UserP> usersP = new ArrayList<>();
     ArrayList<propose> proposeB = new ArrayList<>();
-    ArrayList<OfferJob> joff = new ArrayList<>();
+   // ArrayList<OfferJob> joff = new ArrayList<>();
 
 
     @Override
@@ -96,30 +94,6 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
                 }
             });
 
-
-
-
-       // DatabaseReference refOfferJob = refJobOffer;
-
-        /*Query quer = refJobOffer.orderByChild("uidJP").equalTo(uidp);
-        quer.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot ds) {
-                if (ds.exists()) {
-                    for (DataSnapshot data : ds.getChildren()) {
-                        JPid=data.getKey();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-            }
-        });
-
-
-*/
-
         Query quer = refJobOffer.orderByKey();
         quer.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -153,8 +127,6 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
 
                             }
                         });
-
-                       // ifright(uidp);
                     }
                 }
                 MyAdapter myadp = new MyAdapter(BMain.this, date, time, images);

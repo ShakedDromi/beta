@@ -190,7 +190,7 @@ public class PDetails extends AppCompatActivity {
                     refUsersP.child(Puid).child("pdesc").setValue(PDes);
                     refUsersP.child(Puid).child("pknum").setValue(x);
             }
-            Intent si = new Intent(PDetails.this, PPersonal.class);
+            Intent si = new Intent(PDetails.this, PfirstAct.class);
             startActivity(si);
             finish();}
         }
