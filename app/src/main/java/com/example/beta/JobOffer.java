@@ -14,6 +14,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -27,6 +29,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -34,12 +37,11 @@ import java.util.Calendar;
 
 import static com.example.beta.FBref.refAuth;
 import static com.example.beta.FBref.refJobOffer;
-import static com.example.beta.FBref.refUsersB;
 import static com.example.beta.FBref.refUsersP;
 
 public class JobOffer extends AppCompatActivity {
 
-    String date = "", time = "", description = "", note = "", uidJP;
+    String date = "", time = "", description = "", note = "", makom;
     ArrayList<propose> proposeB;
     String uidp;
 
@@ -78,6 +80,23 @@ public class JobOffer extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        Query queri = refUsersP.orderByChild("puid").equalTo(refAuth.getCurrentUser().getUid()).limitToFirst(1);
+        queri.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot DS) {
+                // UserP userp = new UserP();
+                for (DataSnapshot data: DS.getChildren()) {
+                    UserP userP = data.getValue(UserP.class);
+                    makom=userP.getpaddress();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     public void submit(View view) {
@@ -101,7 +120,13 @@ public class JobOffer extends AppCompatActivity {
 
             FirebaseUser userOff = refAuth.getCurrentUser();
             uidp = userOff.getUid();
-            offJob = new OfferJob(date, time, description, uidp);
+            //makom= refUsersP.child(uidp).child("paddress").getParent().toString();
+
+
+
+
+
+            offJob = new OfferJob(date, time, description, uidp, makom);
             refJobOffer.child(JPid).setValue(offJob);
 
         }

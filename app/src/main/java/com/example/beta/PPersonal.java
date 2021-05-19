@@ -173,57 +173,7 @@ public class PPersonal extends AppCompatActivity {
                 }
             }
         });
-
-
-       /* AdapterView.OnItemSelectedListener onItemSelectedListener1 =
-                new AdapterView.OnItemSelectedListener() {
-
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        refUsersP.child(uidP).child("paddress").setValue(parent.getItemAtPosition(position).toString());
-
-                        Toast.makeText(parent.getContext(), "Clicked : " +
-                                parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
-
-                        //tvPAdd.setText(UserP.getpaddress());
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                };*/
-
-        /*
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("UserP");
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds : snapshot.getChildren())
-                {
-                    if(ds.getKey().equals(uidP))
-                    {
-                        UserP = ds.getValue(com.example.beta.UserP.class);
-                        tvTitll.setText("Hi,"+UserP.getpname()+"!");
-                        tvPMail.setText(UserP.getpmail());
-                        tvPAdd.setText(UserP.getpaddress());
-                        tvPDes.setText(UserP.getpdesc());
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });*/
-
-        // PPAss=user.get
         updatePDUI(user);
-
-        //  refUsersP.child(uidP).child("pname").removeValue();
-
-
     }
 
     public void AddKidsNum(View view) {

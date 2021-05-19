@@ -40,6 +40,7 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
     private FirebaseAuth mBRAuth, mPDAuth;
     ArrayAdapter<String> adapter;
     boolean pressed = false;
+    boolean same = false;
 
     TextView tvname, tvnum, tvage, tvdes;
 
@@ -95,6 +96,9 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
                 }
             });
 
+
+
+
        // DatabaseReference refOfferJob = refJobOffer;
 
         /*Query quer = refJobOffer.orderByChild("uidJP").equalTo(uidp);
@@ -113,32 +117,74 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
             }
         });
 
+
 */
-            ValueEventListener pListener = new ValueEventListener() {
+
+        Query quer = refJobOffer.orderByKey();
+        quer.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dS) {
+            public void onDataChange(@NonNull DataSnapshot DS) {
+                // UserP userp = new UserP();
                 date.clear();
                 time.clear();
-                for(DataSnapshot data : dS.getChildren()) {
-                    UserP uP = data.getValue(UserP.class);
+                for (DataSnapshot data: DS.getChildren()) {
                     OfferJob jobOff = data.getValue(OfferJob.class);
-                    if (uP.getpaddress().equals(stplace)){
-                        uidp=uP.getpuid();
-
+                    if(jobOff.getMakom().equals(stplace)){
                         time.add(jobOff.getTime());
                         date.add(jobOff.getDate());
                         images.add(R.drawable.facebook);
-                        usersP.add(uP);
-                        joff.add(jobOff);
+                        uidp=jobOff.getUidJP();
+
+
+                        Query querr = refUsersP.orderByChild("puid").equalTo(uidp);
+                        querr.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot DS) {
+                                for (DataSnapshot data: DS.getChildren()) {
+                                    UserP puser = data.getValue(UserP.class);
+                                        //uidp=jobOff.getUidJP();
+                                    usersP.add(puser);
+
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+                       // ifright(uidp);
                     }
                 }
                 MyAdapter myadp = new MyAdapter(BMain.this, date, time, images);
                 lV2.setAdapter(myadp);
             }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+       /* ValueEventListener pListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dS) {
+
+                for(DataSnapshot data : dS.getChildren()) {
+                    //OfferJob jobOff = data.getValue(OfferJob.class);
+                    UserP uP = data.getValue(UserP.class);
+                    if (uP.getpaddress().equals(stplace)){
+                        uidp=uP.getpuid();
+                        usersP.add(uP);
+                        //joff.add(jobOff);
+                    }
+                }
+            }
             @Override
             public void onCancelled(DatabaseError databaseError) { }
         };
-        refUsersP.addListenerForSingleValueEvent(pListener);
+        refUsersP.addListenerForSingleValueEvent(pListener);*/
     }
 
 

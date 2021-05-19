@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * contains all of the data required for a job offer.
  */
 public class OfferJob {
-    private String date, time, description, uidJP;
+    private String date, time, description, uidJP, makom;
     //private propose proposeB;
 
     private ArrayList<propose> proposeB;
@@ -28,13 +28,15 @@ public class OfferJob {
      * @param time
      * @param description
      * @param uidJP
+     * @param makom
      * @param proposeB
      */
-    public OfferJob(String date, String time, String description, String uidJP){
+    public OfferJob(String date, String time, String description, String uidJP, String makom){
         this.date=date;
         this.time=time;
         this.description=description;
         this.uidJP=uidJP;
+        this.makom=makom;
         //this.proposeB=proposeB;
     }
 
@@ -50,6 +52,6 @@ public class OfferJob {
     public String getUidJP(){return uidJP;}
     public void setUidJP(String uidJP){this.uidJP=uidJP;}
 
-    //public propose getProposeB(){return proposeB;}
-    //public void setProposeB(propose proposeB){this.proposeB=proposeB;}
+    public String getMakom(){return makom;}
+    public void setMakom(String makom){this.makom=makom;}
 }
