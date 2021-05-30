@@ -123,10 +123,13 @@ public class JobOffer extends AppCompatActivity {
             //makom= refUsersP.child(uidp).child("paddress").getParent().toString();
 
 
+           // propose pr= new propose("",0);
 
+           // ArrayList<propose> ap= new ArrayList<propose>();
 
+            //ap.add(pr);
 
-            offJob = new OfferJob(date, time, description, uidp, makom);
+            offJob = new OfferJob(date, time, description, uidp, makom,null);
             refJobOffer.child(JPid).setValue(offJob);
 
             Intent si = new Intent(JobOffer.this, PfirstAct.class);

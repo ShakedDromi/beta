@@ -86,9 +86,11 @@ public class BDetails extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month++;
                 date = dayOfMonth +"/" + month +"/" +year;
+
                 int currentYear=Calendar.getInstance().get(Calendar.YEAR);
                 if ((currentYear-year)>=13)
                     tvBDate.setText(date);
+
                 else
                     Toast.makeText(BDetails.this, "The Minimal Age For Using This App Is 13", Toast.LENGTH_SHORT).show();
             }
@@ -154,6 +156,7 @@ public class BDetails extends AppCompatActivity {
                 etBDes.setError("Description must be between 20-100 chars");
             else{
             Intent si = new Intent(BDetails.this, BfirstAct.class);
+
             startActivity(si);
             finish();
             }

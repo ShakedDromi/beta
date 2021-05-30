@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class padapter extends ArrayAdapter<String> {
     ArrayList<String> rpDescription;
 
     padapter(Context c, ArrayList<String> title, ArrayList<String> description){
-        super(c, R.layout.row, R.id.textView1, title);
+        super(c, R.layout.prow, R.id.textView1, title);
         this.contextp =c;
         this.rpTitle =title;
         this.rpDescription =description;

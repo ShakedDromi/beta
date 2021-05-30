@@ -250,7 +250,7 @@ public class BRegistr extends AppCompatActivity {
                                             userBdb = new UserB("", BMail, "", "", "", "", Buid, BPass);
                                             refUsersB.child(Buid).setValue(userBdb);
                                             Toast.makeText(BRegistr.this, "Successful Registration", Toast.LENGTH_SHORT).show();
-                                            Intent si = new Intent(BRegistr.this, BfirstAct.class);
+                                            Intent si = new Intent(BRegistr.this, BDetails.class);
                                             si.putExtra("UesrB", true);
                                             startActivity(si);
                                             finish();

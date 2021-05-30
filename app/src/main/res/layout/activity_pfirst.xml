@@ -38,20 +38,20 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="10"
+            android:layout_weight="5"
             android:gravity="center_horizontal"
             android:text="Fill a Job Offer" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="10"/>
+            android:layout_weight="5"/>
 
         <ListView
             android:id="@+id/lvjobs"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="50" />
+            android:layout_weight="60" />
 
         <Space
             android:layout_width="match_parent"

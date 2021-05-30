@@ -31,13 +31,13 @@ public class OfferJob {
      * @param makom
      * @param proposeB
      */
-    public OfferJob(String date, String time, String description, String uidJP, String makom){
+    public OfferJob(String date, String time, String description, String uidJP, String makom, ArrayList<propose> proposeB){
         this.date=date;
         this.time=time;
         this.description=description;
         this.uidJP=uidJP;
         this.makom=makom;
-        //this.proposeB=proposeB;
+        this.proposeB=proposeB;
     }
 
     public String getDate(){return date;}
@@ -54,4 +54,7 @@ public class OfferJob {
 
     public String getMakom(){return makom;}
     public void setMakom(String makom){this.makom=makom;}
+
+    public ArrayList<propose> getProposeB(){return proposeB;}
+    public void setProposeB(ArrayList<propose> proposeB){this.proposeB=proposeB;}
 }
