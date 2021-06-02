@@ -62,11 +62,12 @@
                 android:layout_weight="10" />
 
             <ImageView
-                android:id="@+id/IView"
+                android:id="@+id/biv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="30"
                 app:srcCompat="@android:drawable/ic_menu_slideshow" />
+
 
         </LinearLayout>
 

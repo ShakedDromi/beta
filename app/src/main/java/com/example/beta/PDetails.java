@@ -1,41 +1,45 @@
 package com.example.beta;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import static com.example.beta.FBref.refPlaces;
+import static com.example.beta.FBref.refStor;
 import static com.example.beta.FBref.refUsersP;
 
 public class PDetails extends AppCompatActivity {
 
-    String PName="", PAdd="", PDes="", Puid="", PMAil="", PPAss="", date="";
+    String PName="", PAdd="", PDes="", Puid="", pIM="", PPAss="", date="";
     ArrayList<String> kidsBday;
     EditText etPName,etPDes;
     private FirebaseAuth mPDAuth;
@@ -43,6 +47,9 @@ public class PDetails extends AppCompatActivity {
     ListView lv;
     ArrayAdapter<String> adapter;
     int x=0;
+
+    public Uri imguriP;
+    ImageView ivP;
 
     DatePickerDialog.OnDateSetListener mDateSetListener;
 
@@ -62,6 +69,7 @@ public class PDetails extends AppCompatActivity {
          */
         etPName=(EditText)findViewById(R.id.etPName);
         spPlaces=(Spinner) findViewById(R.id.spPlaces);
+        ivP=(ImageView) findViewById(R.id.ivP);
         etPDes=(EditText)findViewById(R.id.etPDes);
         lv=(ListView)findViewById(R.id.lv);
         mPDAuth = FirebaseAuth.getInstance();
@@ -184,6 +192,23 @@ public class PDetails extends AppCompatActivity {
                 etPDes.setError("Description must be between 20-100 chars");
             else{
                 if (kidsBday != null){
+                    StorageReference refImagesp=refStor.child(Puid+".jpg");
+                    refImagesp.putFile(imguriP)
+                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    // Get a URL to the uploaded content
+                                    //Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                                    Toast.makeText(PDetails.this,"image uploaded successfully",Toast.LENGTH_LONG).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception exception) {
+                                    // Handle unsuccessful uploads
+                                    // ...
+                                }
+                            });
                     refUsersP.child(Puid).child("kidsBday").setValue(kidsBday);
                     refUsersP.child(Puid).child("pname").setValue(PName);
                     refUsersP.child(Puid).child("paddress").setValue(PAdd);
@@ -196,5 +221,27 @@ public class PDetails extends AppCompatActivity {
         }
     }
 
+    /**
+     * This method import the image from the device's gallery
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1&&resultCode==RESULT_OK&&data!=null&&data.getData()!=null){
+            imguriP =data.getData();
+            ivP.setImageURI(imguriP);
+        }
+    }
+
+    public void uploadP(View view) {
+        Intent si=new Intent();
+        si.setType("image/*");//search for image in gallery
+        si.setAction(Intent.ACTION_GET_CONTENT);//search for content in gallery
+        startActivityForResult(si,1);
+    }
 }

@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -16,6 +18,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -23,10 +27,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import static com.example.beta.FBref.refJobOffer;
+import static com.example.beta.FBref.refStor;
 import static com.example.beta.FBref.refUsersB;
 import static com.example.beta.FBref.refUsersP;
 
@@ -34,8 +44,8 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
 
     ListView lV2;
     UserB userB;
-    String stplace = "";
-    int bPrice = 0;
+    String stplace = "", bname;
+    int bPrice = 0, bage,x;
     String uidB, uidp, JPid;
     private FirebaseAuth mBRAuth;
     boolean pressed = false;
@@ -85,6 +95,10 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
                     for (DataSnapshot data: DS.getChildren()) {
                         userB = data.getValue(UserB.class);
                         stplace=userB.getAddress();
+                        bname=userB.getName();
+                        x=userB.getBirthDate().lastIndexOf('/');
+                        String year=userB.getBirthDate().substring(x,userB.getBirthDate().length()-1);
+                        bage= Calendar.getInstance().get(Calendar.YEAR)-(year.indexOf(0)*1000+year.indexOf(1)*100+year.indexOf(2)*10+year.indexOf(3));
                     }
                 }
 
@@ -93,6 +107,9 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
 
                 }
             });
+
+
+
 
         Query quer = refJobOffer.orderByKey();
         quer.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -138,27 +155,26 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
 
             }
         });
-
-       /* ValueEventListener pListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dS) {
-
-                for(DataSnapshot data : dS.getChildren()) {
-                    //OfferJob jobOff = data.getValue(OfferJob.class);
-                    UserP uP = data.getValue(UserP.class);
-                    if (uP.getpaddress().equals(stplace)){
-                        uidp=uP.getpuid();
-                        usersP.add(uP);
-                        //joff.add(jobOff);
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) { }
-        };
-        refUsersP.addListenerForSingleValueEvent(pListener);*/
     }
 
+    /*public void Download() throws IOException {
+        StorageReference refImages=refStor.child(uidp+".jpg");
+        final File localFile;
+        localFile = File.createTempFile(uidp,"jpg");
+        refImages.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>(){
+            @Override
+            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                String filePath = localFile.getPath();
+                Bitmap bitmap = BitmapFactory.decodeFile(filePath);
+                Iv.setImageBitmap(bitmap);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Toast.makeText(BMain.this, "Image download failed", Toast.LENGTH_LONG).show();
+            }
+        });
+    }*/
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -224,7 +240,7 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
                                     //adp = new ArrayAdapter<String>(PPersonal.this, R.layout.support_simple_spinner_dropdown_item, kidBdayList);
                                     //lvK.setAdapter(adp);
                                 }
-                                propose props = new propose(uidB,bPrice);
+                                propose props = new propose(uidB, bname, bPrice, bage);
                                 proposeB.add(props);
                                 refJobOffer.child(JPid).child("propose").setValue(proposeB);
                             }

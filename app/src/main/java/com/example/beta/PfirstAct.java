@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -107,86 +109,6 @@ public class PfirstAct extends AppCompatActivity implements AdapterView.OnItemCl
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
-        /*       Query quer = refJobOffer.orderByKey();
-        quer.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot DS) {
-                // UserP userp = new UserP();
-                date.clear();
-                time.clear();
-
-                bname.clear();
-                bprice.clear();
-                bage.clear();
-                for (DataSnapshot data: DS.getChildren()) {
-                    OfferJob jobOff = data.getValue(OfferJob.class);
-                    if(jobOff.getUidJP().equals(idP)){
-                        time.add(jobOff.getTime());
-                        date.add(jobOff.getDate());
-                        uidp=jobOff.getUidJP();
-
-
-                        Query querr = refUsersP.orderByChild("puid").equalTo(uidp);
-                        querr.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot DS) {
-                                for (DataSnapshot data: DS.getChildren()) {
-                                    UserP puser = data.getValue(UserP.class);
-                                    //uidp=jobOff.getUidJP();
-                                    usersP.add(puser);
-
-                                    ofer.add(jobOff);
-
-
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-
-                        Query q=refJobOffer.child("propose").startAt(0);
-                        q.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot DS) {
-                                for (DataSnapshot data : DS.getChildren()) {
-                                    propose p=data.getValue(propose.class);
-                                    bname.add("a");
-                                    bage.add(5);
-                                    bprice.add(p.getbPrice());
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-
-
-                    }
-                }
-
-                //adpBoff bof = new adpBoff(PfirstAct.this, bname, bage, bprice);
-                //lvpicks.setAdapter(bof);
-
-                padapter padp = new padapter(PfirstAct.this, date, time);
-                lvjobs.setAdapter(padp);
-
-                //adpBoff adB = new adpBoff(PfirstAct.this, bname, bage, bprice);
-                //lvpicks.setAdapter(adB);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });*/
-
     }
 
     public void JOff(View view) {
@@ -201,108 +123,34 @@ public class PfirstAct extends AppCompatActivity implements AdapterView.OnItemCl
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-
-
-
         Intent si = new Intent(PfirstAct.this, adListView.class);
         startActivity(si);
+    }
 
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 
-
-       /* Query querj = refJobOffer.orderByChild("uidJP").equalTo(uidp);
-        querj.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot data: snapshot.getChildren()) {
-                    OfferJob oj=data.getValue(OfferJob.class);
-                    if ((date.get(position).compareTo(oj.getDate())==0)){
-                        Query querr = refJobOffer.orderByChild("propose").startAt(0);
-                        querr.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot DS) {
-                                for (DataSnapshot data: DS.getChildren()) {
-                                    propose pr = data.getValue(propose.class);
-                                    idB=pr.getbUid();
-                                    bprice.add(pr.getbPrice());
-
-
-                                    Query querri = refUsersB.orderByChild("uid").equalTo(idB);
-                                    querri.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot DS) {
-                                            for (DataSnapshot data: DS.getChildren()) {
-                                                UserB ub = data.getValue(UserB.class);
-                                                bname.add(ub.getName());
-                                                int ch = 0;
-                                                int num=0;
-                                                int x=1000;
-                                                for (int j=0; j<ub.getBirthDate().length(); j++){
-                                                    num++;
-                                                }
-                                                for (int i=num-4; i<ub.getBirthDate().length(); i++){
-                                                    //ch=Integer.parseInt(((int) ub.getBirthDate().charAt(i)))
-                                                    ch=ch+(int)ub.getBirthDate().charAt(i)*x;
-                                                    x=x/10;
-                                                }
-                                                int age= Calendar.getInstance().get(Calendar.YEAR)-ch;
-                                                bage.add(age);
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
-
-                                        }
-                                    });
-
-                                }
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-                    }
-
-
-
-                }
-                adpBoff adB = new adpBoff(PfirstAct.this, bname, bage, bprice);
-                adbb.add(adB);
-                //lvpicks.setAdapter(adB);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });*/
-/*
-        LayoutInflater inflater = ((LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
-        View customView = inflater.inflate(R.layout.activity_ad_list_view, null, false);
-        //AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(customView);
-
-*/
-        /*builder.setTitle("Select an item")
-                .setItems(R.array.your_array, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // The 'which' argument contains the index position of the selected item
-                        Toast.makeText(PfirstAct.this,"Selected item on position \" + which",Toast.LENGTH_SHORT).show();
-                    }
-                });*/
-      //  builder.create().show();
-        //Intent si = new Intent(PfirstAct.this, parentsOffersB.class);
-        //si.putExtra("infouid",usersP.get(position).getpuid());
-        //si.putExtra("infodate",date.get(position));
-            //si.putExtra("nameb", bname);
-            //si.putExtra("ageb", bage);
-            //si.putExtra("priceb", bprice);
-        //startActivity(si);
-
-        //transfer to another activity
+    /**
+     * this function gets the user's choice from the menu and sends him to the appropriate activity
+     * @param item
+     * @return
+     */
+    public boolean onOptionsItemSelected (MenuItem item){
+        String st = item.getTitle().toString();
+        if (st.equals("about")) {
+            Intent si = new Intent(PfirstAct.this, about.class);
+            startActivity(si);
+        }
+        if (st.equals("PPersonal")) {
+            Intent si = new Intent(PfirstAct.this, PPersonal.class);
+            startActivity(si);
+        }
+        if (st.equals("PfirstAct")) {
+            Intent si = new Intent(PfirstAct.this, PfirstAct.class);
+            startActivity(si);
+        }
+        return true;
     }
 }

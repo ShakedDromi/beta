@@ -5,7 +5,7 @@ package com.example.beta;
  * contains all of the data required for a user.
  */
 public class UserB {
-    private String name, pass, mail, address, description, birthDate, image, Buid;
+    private String name, pass, mail, address, description, birthDate, Buid;
     /**
      * an empty builder.
      * this function is not used, but is required in order to use Firebase.
@@ -23,17 +23,15 @@ public class UserB {
      * @param description
      * @param address
      * @param uid
-     * @param image
      * @param birthDate
      */
-    public UserB(String name, String mail, String birthDate, String address, String image, String description, String uid, String pass){
+    public UserB(String name, String mail, String birthDate, String address, String description, String uid, String pass){
         this.name=name;
         this.pass=pass;
         this.mail=mail;
         this.address=address;
         this.description=description;
         this.birthDate=birthDate;
-        this.image=image;
         this.Buid=uid;
     }
 
@@ -54,9 +52,6 @@ public class UserB {
 
     public String getBirthDate() { return birthDate; }
     public void setBirthDate(String birthDate) { this.birthDate = birthDate; }
-
-    public String getImage(){return image;}
-    public void setImage(String image){this.image=image;}
 
     public String getUid(){return Buid;}
     public void setUid(String uid){this.Buid=uid;}

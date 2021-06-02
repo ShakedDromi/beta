@@ -1,32 +1,45 @@
 package com.example.beta;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import static com.example.beta.FBref.refPlaces;
+import static com.example.beta.FBref.refStor;
 import static com.example.beta.FBref.refUsersB;
 
 public class BDetails extends AppCompatActivity {
@@ -36,6 +49,8 @@ public class BDetails extends AppCompatActivity {
     Boolean  BDisUID=false;
     TextView tvBDate;
     DatePickerDialog.OnDateSetListener mDateSetListener;
+    public Uri imguri;
+    ImageView ivB;
     //public static FirebaseDatabase BDFBDB = FirebaseDatabase.getInstance();
     //public static DatabaseReference refUserB= BDFBDB.getReference("UserB");
 
@@ -55,6 +70,7 @@ public class BDetails extends AppCompatActivity {
         etBDes=(EditText)findViewById(R.id.etBDes);
         tvBDate=(TextView)findViewById(R.id.tvBDate);
         mBDAuth = FirebaseAuth.getInstance();
+        ivB =(ImageView) findViewById(R.id.ivB);
 
 
         /**
@@ -124,6 +140,7 @@ public class BDetails extends AppCompatActivity {
 
 
 
+
     private void updatePDUI(FirebaseUser currentUser){
     }
 
@@ -146,6 +163,23 @@ public class BDetails extends AppCompatActivity {
             Toast.makeText(this, "please fill all the necessary details", Toast.LENGTH_SHORT).show();
         }
         else {
+            StorageReference refImagesp=refStor.child(Buid+".jpg");
+            refImagesp.putFile(imguri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // Get a URL to the uploaded content
+                            //Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                            Toast.makeText(BDetails.this,"image uploaded successfully",Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                            // ...
+                        }
+                    });
             refUsersB.child(Buid).child("name").setValue(BName);
             refUsersB.child(Buid).child("address").setValue(BAdd);
             refUsersB.child(Buid).child("birthDate").setValue(date);
@@ -162,5 +196,29 @@ public class BDetails extends AppCompatActivity {
             }
         }
 
+    }
+
+    /**
+     * This method import the image from the device's gallery
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1&&resultCode==RESULT_OK&&data!=null&&data.getData()!=null){
+            imguri=data.getData();
+            ivB.setImageURI(imguri);
+        }
+    }
+
+    public void upload(View view) {
+        Intent si=new Intent();
+        si.setType("image/*");//search for image in gallery
+        si.setAction(Intent.ACTION_GET_CONTENT);//search for content in gallery
+        startActivityForResult(si,1);
     }
 }

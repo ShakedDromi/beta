@@ -246,7 +246,7 @@ public class PRegister extends AppCompatActivity {
                                         Log.d("PRegistr", "createUserWithEmail:success");
                                         FirebaseUser UserP = refAuth.getCurrentUser();
                                         Puid = UserP.getUid();
-                                        userPdb = new UserP("", PPass, PMail, "", "", "", Puid, 0);
+                                        userPdb = new UserP("", PPass, PMail, "", "", Puid, 0);
                                         refUsersP.child(Puid).setValue(userPdb);
                                         Toast.makeText(PRegister.this, "Successful Registration", Toast.LENGTH_SHORT).show();
                                         Intent si = new Intent(PRegister.this, PDetails.class);

@@ -39,7 +39,7 @@ public class adpBoff extends ArrayAdapter<String> {
         TextView age= bOffrow.findViewById(R.id.textView2);
         TextView price= bOffrow.findViewById(R.id.textView3);
 
-        name.setText(bname.get(position)+"");
+        name.setText(bname.get(position));
         age.setText(bage.get(position)+"");
         price.setText(bprice.get(position)+"");
 

@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         SharedPreferences settings=getSharedPreferences("PREFS_NAME",MODE_PRIVATE);
         Boolean isChecked=settings.getBoolean("stayConnect",false);
-        Intent si=new Intent(MainActivity.this, PMain.class);
+        Intent si=new Intent(MainActivity.this, PRegister.class);
         if((refAuth.getCurrentUser()!=null) && (isChecked)){
             PstayConnect =true;
             si.putExtra("UserP",false);

@@ -17,7 +17,6 @@
         <activity android:name=".JobOffer" />
         <activity android:name=".BPersonal" />
         <activity android:name=".PPersonal" />
-        <activity android:name=".PMain" />
         <activity
             android:name=".PDetails"
             android:windowSoftInputMode="adjustPan" />

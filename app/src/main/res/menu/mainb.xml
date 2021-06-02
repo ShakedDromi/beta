@@ -2,14 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-
-    <item android:title="PPersonal"
-        android:id="@+id/Ppersonal"/>
+    <item android:title="BPersonal"
+        android:id="@+id/bpersonal"/>
 
     <item android:title="about"
         android:id="@+id/about"/>
 
-    <item android:title="PfirstAct"
-        android:id="@+id/PfirstAct"/>
+    <item android:title="BfirstAct"
+        android:id="@+id/BfirstAct"/>
 
 </menu>

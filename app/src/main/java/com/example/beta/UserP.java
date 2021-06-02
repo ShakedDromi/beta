@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * contains all of the data required for a user.
  */
 public class UserP implements Serializable {
-    private String pname, ppass, pmail, paddress, pdesc, pimage, puid;
+    private String pname, ppass, pmail, paddress, pdesc, puid;
     private int pknum;
     private ArrayList<String> kidsBday;
     private ArrayList<OfferJob> jOff;
@@ -27,17 +27,15 @@ public class UserP implements Serializable {
      * @param pmail
      * @param paddress
      * @param pdesc
-     * @param pimage
      * @param pknum
      * @param puid
      */
-    public UserP(String pname, String ppass, String pmail, String paddress, String pdesc, String pimage, String puid, int pknum){
+    public UserP(String pname, String ppass, String pmail, String paddress, String pdesc, String puid, int pknum){
         this.pname=pname;
         this.ppass =ppass;
         this.pmail =pmail;
         this.paddress =paddress;
         this.pdesc =pdesc;
-        this.pimage =pimage;
         this.puid =puid;
         this.pknum=pknum;
        // this.kidsBday=kidsBday;
@@ -62,11 +60,6 @@ public class UserP implements Serializable {
         return pdesc;
     }
     public void setpdesc(String pdesc) { this.pdesc = pdesc; }
-
-    public String getpimage(){return pimage;}
-    public void setpimage(String pimage){this.pimage = pimage;}
-
-
 
     public String getpuid(){return puid;}
     public void setPuid(String puid){this.puid = puid;}
