@@ -19,6 +19,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -48,7 +50,7 @@ public class JobOffer extends AppCompatActivity {
     OfferJob offJob;
 
     TextView tvDate, tvTime, tvDescription;
-    Button btnsetDate, btnsetTime, btnsetDes;
+    ImageView btnsetDate, btnsetTime, btnsetDes;
     DatePickerDialog.OnDateSetListener mJDateSetListener;
     private FirebaseAuth mPDAuth;
 
@@ -66,9 +68,9 @@ public class JobOffer extends AppCompatActivity {
         tvDate = (TextView) findViewById(R.id.tvDate);
         tvTime = (TextView) findViewById(R.id.tvTime);
         tvDescription = (TextView) findViewById(R.id.tvDescription);
-        btnsetDate = (Button) findViewById(R.id.btnsetDate);
-        btnsetTime = (Button) findViewById(R.id.btnsetTime);
-        btnsetDes = (Button) findViewById(R.id.btnsetDes);
+        btnsetDate = (ImageButton) findViewById(R.id.btnsetDate);
+        btnsetTime = (ImageView) findViewById(R.id.btnsetTime);
+        btnsetDes = (ImageButton) findViewById(R.id.btnsetDes);
 
 
 

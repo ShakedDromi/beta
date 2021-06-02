@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +51,7 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
     private FirebaseAuth mBRAuth;
     boolean pressed = false;
 
+    ImageView priv;
     TextView tvname, tvnum, tvage, tvdes;
 
     ArrayList<String> date = new ArrayList<>();
@@ -69,6 +71,7 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
         tvdes = (TextView) findViewById(R.id.tvdes);
         tvname = (TextView) findViewById(R.id.tvname);
         tvnum = (TextView) findViewById(R.id.tvnum);
+        priv = (ImageView) findViewById(R.id.priv);
 
         lV2 = (ListView) findViewById(R.id.lV2);
         lV2.setOnItemClickListener(this);
@@ -123,7 +126,6 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
                     if(jobOff.getMakom().equals(stplace)){
                         time.add(jobOff.getTime());
                         date.add(jobOff.getDate());
-                        images.add(R.drawable.facebook);
                         uidp=jobOff.getUidJP();
 
 
@@ -146,7 +148,7 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
                         });
                     }
                 }
-                MyAdapter myadp = new MyAdapter(BMain.this, date, time, images);
+                MyAdapter myadp = new MyAdapter(BMain.this, date, time);
                 lV2.setAdapter(myadp);
             }
 
@@ -157,7 +159,7 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
         });
     }
 
-    /*public void Download() throws IOException {
+    public void Download() throws IOException {
         StorageReference refImages=refStor.child(uidp+".jpg");
         final File localFile;
         localFile = File.createTempFile(uidp,"jpg");
@@ -166,7 +168,7 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                 String filePath = localFile.getPath();
                 Bitmap bitmap = BitmapFactory.decodeFile(filePath);
-                Iv.setImageBitmap(bitmap);
+                priv.setImageBitmap(bitmap);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -174,7 +176,7 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
                 Toast.makeText(BMain.this, "Image download failed", Toast.LENGTH_LONG).show();
             }
         });
-    }*/
+    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -185,6 +187,12 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
         tvage.setText(usersP.get(position).getpmail());
         tvdes.setText(usersP.get(position).getpdesc());
         uidp=usersP.get(position).getpuid();
+
+        try {
+            Download();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Query quer = refJobOffer.orderByChild("uidJP").equalTo(uidp);
         quer.addListenerForSingleValueEvent(new ValueEventListener() {

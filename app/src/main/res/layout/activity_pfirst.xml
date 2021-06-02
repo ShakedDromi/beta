@@ -23,24 +23,25 @@
             android:layout_height="0dp"
             android:layout_weight="5" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/imageButton"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="20"
             android:background="#FFFFFF"
-            android:scaleX="3"
-            android:scaleY="3"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
             android:onClick="JOff"
-            app:srcCompat="@android:drawable/ic_menu_search" />
+            app:srcCompat="@drawable/joff" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="5"
+            android:layout_weight="4"
             android:gravity="center_horizontal"
-            android:text="Fill a Job Offer" />
+            android:textSize="15dp"
+            android:text="Tap Icon To Fill a Job Offer" />
 
         <Space
             android:layout_width="match_parent"
@@ -50,7 +51,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4"
+            android:layout_weight="5"
             android:textSize="25dp"
             android:textColor="#111"
             android:text="Upcoming Jobs:"/>

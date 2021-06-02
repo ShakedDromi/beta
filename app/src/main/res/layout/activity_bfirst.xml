@@ -24,24 +24,26 @@
             android:layout_height="0dp"
             android:layout_weight="5" />
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="20"
             android:background="#FFFFFF"
-            android:scaleX="3"
-            android:scaleY="3"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:layout_gravity="center_horizontal"
             android:onClick="search"
-            app:srcCompat="@android:drawable/ic_menu_search" />
+            app:srcCompat="@drawable/findmatchingjob" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="5"
+            android:layout_weight="4"
             android:gravity="center_horizontal"
-            android:text="Search For a Job" />
+            android:text="Tap Icon to Search For a Job"
+            android:textSize="15dp"/>
 
         <Space
             android:layout_width="match_parent"
@@ -51,7 +53,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4"
+            android:layout_weight="5"
             android:textSize="25dp"
             android:textColor="#111"
             android:text="Upcoming Jobs:"/>
