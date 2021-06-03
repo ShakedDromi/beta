@@ -103,6 +103,9 @@ public class BPersonal extends AppCompatActivity {
 
     }
 
+    /**
+     * this method uploads from the firebase - the user his personal information.
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -154,6 +157,10 @@ public class BPersonal extends AppCompatActivity {
         updatePDUI(user);
     }
 
+    /**
+     * this method downloads the picture of the user from the firebase storage according to his id.
+     * @throws IOException
+     */
     public void Download() throws IOException {
         StorageReference refImages=refStor.child(uidB+".jpg");
         final File localFile;
@@ -173,36 +180,10 @@ public class BPersonal extends AppCompatActivity {
         });
     }
 
-
-
-    public void AddressChngeB(View view) {
-        AlertDialog.Builder adAdd;
-        adAdd=new AlertDialog.Builder(this);
-
-        FirebaseUser user = mBRAuth.getCurrentUser();
-        uidB = user.getUid();
-
-        adAdd.setTitle("Change Your Address");
-        final EditText et=new EditText(this);
-        adAdd.setView(et);
-        adAdd.setPositiveButton("set", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                tvAddB.setText(et.getText());
-                refUsersB.child(uidB).child("address").setValue(tvAddB.getText().toString());
-            }
-        });
-        adAdd.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        AlertDialog adk=adAdd.create();
-        adk.show();
-    }
-
+    /**
+     * this method opens an alert dialog with a multiline edit text, in case the user wants to change his description.
+     * @param view
+     */
     public void descriptionChngeB(View view) {
         AlertDialog.Builder adDes;
         adDes=new AlertDialog.Builder(this);

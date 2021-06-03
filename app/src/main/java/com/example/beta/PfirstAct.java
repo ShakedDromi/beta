@@ -39,22 +39,8 @@ import static com.example.beta.FBref.refUsersP;
 public class PfirstAct extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     ListView lvjobs;
-    ListView lvpicks;
-    UserP usP;
-    String idP, idB, uidp;
+    String idP;
     private FirebaseAuth mPRAuth;
-
-    ArrayList<String> boff = new ArrayList<String>();
-    ArrayAdapter<String> adp;
-
-    ArrayList<adpBoff> adbb = new ArrayList<>();
-    ArrayList<String> date = new ArrayList<>();
-    ArrayList<String> time = new ArrayList<>();
-    ArrayList<String> bname=new ArrayList<>();
-    ArrayList<Integer> bage=new ArrayList<>();
-    ArrayList<Integer> bprice=new ArrayList<>();
-    ArrayList<UserP> usersP = new ArrayList<>();
-    ArrayList<OfferJob> ofer = new ArrayList<>();
 
     ArrayList<OfferJob> offers = new ArrayList<>();
 
@@ -64,14 +50,12 @@ public class PfirstAct extends AppCompatActivity implements AdapterView.OnItemCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pfirst);
 
+        /**
+         * give each UI variable a value
+         */
         lvjobs = (ListView) findViewById(R.id.lvjobs);
         lvjobs.setOnItemClickListener(this);
         lvjobs.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-
-      //  lvpicks = (ListView) findViewById(R.id.lvpicks);
-
-        //lvpicks.setOnItemClickListener(this);
-        //lvpicks.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
     }
 
     private void updatePDUI(FirebaseUser currentUser) {
@@ -79,6 +63,9 @@ public class PfirstAct extends AppCompatActivity implements AdapterView.OnItemCl
     }
 
 
+    /*
+    this method gets the user's id from database, and fills the list view with the jobs offers the parent created
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -92,17 +79,13 @@ public class PfirstAct extends AppCompatActivity implements AdapterView.OnItemCl
         shaked.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dS) {
-                time.clear();
-                date.clear();
                 offers.clear();
                 for (DataSnapshot data: dS.getChildren()) {
                     OfferJob jobOff = data.getValue(OfferJob.class);
-                    time.add(jobOff.getTime());
-                    date.add(jobOff.getDate());
                     offers.add(jobOff);
                 }
 
-                padapter padp = new padapter(PfirstAct.this, date, time);
+                padapter padp = new padapter(PfirstAct.this,offers);
                 lvjobs.setAdapter(padp);
             }
             @Override
@@ -111,19 +94,22 @@ public class PfirstAct extends AppCompatActivity implements AdapterView.OnItemCl
         });
     }
 
+    /*
+    this method sends the user to the job offer activity
+     */
     public void JOff(View view) {
         Intent si = new Intent(PfirstAct.this, JobOffer.class);
         startActivity(si);
         finish();
     }
 
-
-    //@SuppressLint("ResourceType")
-    @SuppressLint("ResourceType")
+    /*
+    this method opens an activity in which there are all the babysitters proposes according to the chosen job.
+     */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         Intent si = new Intent(PfirstAct.this, adListView.class);
+        si.putExtra("uid",((padapter)lvjobs.getAdapter()).getItem(position).getNewId());
         startActivity(si);
     }
 

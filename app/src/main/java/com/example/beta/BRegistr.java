@@ -41,12 +41,11 @@ public class BRegistr extends AppCompatActivity {
     TextView tvBTitle, tvBRegister;
     String BMail = "", BPass = "", Buid = "";
     EditText etBmail, etBpass;
-    // private FirebaseAuth mAuth;
-    Boolean stayConnect, firstRun, registered; //isUID=false,mVerificationProgress=false;
+    Boolean stayConnect, registered;
     Button btnB;
     UserB userBdb;
     CheckBox cBstayconnect;
-    boolean userAlreadyExists=true;
+    boolean userAlreadyExists=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,26 +64,6 @@ public class BRegistr extends AppCompatActivity {
         stayConnect = false;
         registered = true;
         regOptionB();
-
-        //  mAuth = FirebaseAuth.getInstance();
-
-
-        /**
-         * this method checks if this is the first run on the user's device
-         * if so, it sends the user strait to the registration activity(main activity)
-         * if not, it sends him to the connection activity
-         */
-        /*if (firstRun) {
-            isUID=false;
-            onVerificationStateChanged();
-            regOption();
-        }
-        else {
-            isUID=true;
-            registered = true;
-            onVerificationStateChanged();
-            Intent si = new Intent(BRegistr.this, BDetails.class);
-            startActivity(si);        }*/
     }
 
 

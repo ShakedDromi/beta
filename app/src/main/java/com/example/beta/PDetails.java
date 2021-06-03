@@ -43,7 +43,6 @@ public class PDetails extends AppCompatActivity {
     ArrayList<String> kidsBday;
     EditText etPName,etPDes;
     private FirebaseAuth mPDAuth;
-    Boolean  PDisUID=false;
     ListView lv;
     ArrayAdapter<String> adapter;
     int x=0;
@@ -51,13 +50,8 @@ public class PDetails extends AppCompatActivity {
     public Uri imguriP;
     ImageView ivP;
 
-    DatePickerDialog.OnDateSetListener mDateSetListener;
-
     Spinner spPlaces;
     List<String> places = new ArrayList<String>();
-
-
-    //public static FirebaseDatabase PDFBDB = FirebaseDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,17 +116,6 @@ public class PDetails extends AppCompatActivity {
                 String strDate = "" + picker.getDayOfMonth() + "/" + (picker.getMonth() + 1) + "/" + picker.getYear();
                 int currentYear = Calendar.getInstance().get(Calendar.YEAR);
                 int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
-                int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-                int currentDate = Calendar.getInstance().get(Calendar.DATE);
-
-                //problem with if- how can i know the date the user chose hasnt been yet, like- 2.10.2022
-                //how do i make the date the original- instead of 2.2.2021-- 2.3.2021
-                /*if(!strDate.equals(String.valueOf(currentDate))&&((picker.getDayOfMonth()<currentDay)&&(picker.getMonth()<currentMonth)&&(picker.getYear()<currentYear))){
-                    kidsBday.add(strDate);
-                    adapter.notifyDataSetChanged();
-                }else{
-                    Toast.makeText(PDetails.this, "Date Picked is Invalid",Toast.LENGTH_LONG).show();
-                }*/
 
                 if (((currentYear - picker.getYear()) < 0))
                     Toast.makeText(PDetails.this, "Date Picked is Invalid", Toast.LENGTH_LONG).show();

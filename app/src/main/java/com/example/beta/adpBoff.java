@@ -12,18 +12,15 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class adpBoff extends ArrayAdapter<String> {
+public class adpBoff extends ArrayAdapter<propose> {
     Context contextp;
-    ArrayList<String> bname;
-    ArrayList<Integer> bage;
-    ArrayList<Integer> bprice;
+    ArrayList<propose> pr;
 
-    adpBoff(Context c, ArrayList<String> nameb, ArrayList<Integer> ageb, ArrayList<Integer> priceb){
-        super(c, R.layout.boffrow, R.id.textView1, nameb);
+
+    adpBoff(Context c, ArrayList<propose> pr){
+        super(c, R.layout.boffrow, R.id.textView1, pr);
         this.contextp =c;
-        this.bname =nameb;
-        this.bage =ageb;
-        this.bprice=priceb;
+        this.pr =pr;
     }
 
     public adpBoff(@NonNull Context context, int resource, int textViewResourceId) {
@@ -39,9 +36,9 @@ public class adpBoff extends ArrayAdapter<String> {
         TextView age= bOffrow.findViewById(R.id.textView2);
         TextView price= bOffrow.findViewById(R.id.textView3);
 
-        name.setText(bname.get(position));
-        age.setText(bage.get(position)+"");
-        price.setText(bprice.get(position)+"");
+        name.setText(pr.get(position).getBname());
+        age.setText(pr.get(position).getBage()+"");
+        price.setText(pr.get(position).getbPrice()+"");
 
         return bOffrow;
     }

@@ -54,7 +54,6 @@ public class PPersonal extends AppCompatActivity {
     ListView lvK;
     ArrayList<String> kidBdayList = new ArrayList<String>();
     ArrayAdapter<String> adp;
-    //  Boolean newuser;
     private FirebaseAuth mPRAuth;
     ImageView piv;
 
@@ -81,10 +80,6 @@ public class PPersonal extends AppCompatActivity {
         adp =new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, kidBdayList);
         lvK.setAdapter(adp);
 
-        /*(Intent gi=getIntent();
-        newuser=gi.getBooleanExtra("newuser",false);
-        refUsersP.addListenerForSingleValueEvent(VELUpdateSNum);*/
-
 
         /**
          * this function uploads the information from the firebase tree - Places - to a spinner
@@ -102,8 +97,6 @@ public class PPersonal extends AppCompatActivity {
                 ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(PPersonal.this, android.R.layout.simple_spinner_item, places);
                 arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spPlaceP.setAdapter(arrayAdapter);
-                //spPlaceP.setOnItemSelectedListener(new OnSpinnerItemClicked());
-                //tvPAdd.setText(spPlaceP.getSelectedItem().toString());
             }
 
             @Override
@@ -116,6 +109,11 @@ public class PPersonal extends AppCompatActivity {
     private void updatePDUI(FirebaseUser currentUser){
     }
 
+
+    /**
+     * this method uploads from the firebase - the current user's birth date list.
+     * it also presents to the user his personal information.
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -136,7 +134,6 @@ public class PPersonal extends AppCompatActivity {
                         kidBdayList.add(tmp);
 
                     }
-                    // adp=new ArrayAdapter<String>(PPersonal.this,R.layout.lvklayout, kidBdayList);
                     adp = new ArrayAdapter<String>(PPersonal.this, R.layout.support_simple_spinner_dropdown_item, kidBdayList);
                     lvK.setAdapter(adp);
                 }
@@ -193,6 +190,10 @@ public class PPersonal extends AppCompatActivity {
         updatePDUI(user);
     }
 
+    /**
+     * this method downloads the picture of the user from the firebase storage according to his id.
+     * @throws IOException
+     */
     public void Download() throws IOException {
         StorageReference refImages=refStor.child(uidP+".jpg");
         final File localFile;
@@ -212,6 +213,10 @@ public class PPersonal extends AppCompatActivity {
         });
     }
 
+    /**
+     * this method allows the user to add more kids to his list- by opening a date picker alert dialog.
+     * @param view
+     */
     public void AddKidsNum(View view) {
 
         android.app.AlertDialog.Builder adb = new android.app.AlertDialog.Builder(this);
@@ -265,6 +270,10 @@ public class PPersonal extends AppCompatActivity {
         ad.show();
     }
 
+    /**
+     * this method opens an alert dialog with a multiline edit text, in case the user wants to change his description.
+     * @param view
+     */
     public void descriptionChnge(View view) {
         AlertDialog.Builder adDes;
         adDes=new AlertDialog.Builder(this);
@@ -299,15 +308,6 @@ public class PPersonal extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
-            }
-        });
-
-        adDes.setNegativeButton("clear all", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                adDes.setCancelable(false);
-                et.setText("");
-                //  et.toString().replace(et.toString()," ");
             }
         });
 

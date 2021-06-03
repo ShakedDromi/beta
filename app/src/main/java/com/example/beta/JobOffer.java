@@ -43,22 +43,13 @@ import static com.example.beta.FBref.refUsersP;
 
 public class JobOffer extends AppCompatActivity {
 
-    String date = "", time = "", description = "", note = "", makom;
-    ArrayList<propose> proposeB;
+    String date = "", time = "", description = "", makom;
     String uidp;
 
     OfferJob offJob;
 
     TextView tvDate, tvTime, tvDescription;
     ImageView btnsetDate, btnsetTime, btnsetDes;
-    DatePickerDialog.OnDateSetListener mJDateSetListener;
-    private FirebaseAuth mPDAuth;
-
-
-
-
-    //OfferJob JO = new OfferJob(date, time, description, note, uidJP);
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +62,6 @@ public class JobOffer extends AppCompatActivity {
         btnsetDate = (ImageButton) findViewById(R.id.btnsetDate);
         btnsetTime = (ImageView) findViewById(R.id.btnsetTime);
         btnsetDes = (ImageButton) findViewById(R.id.btnsetDes);
-
-
-
-
     }
 
 
@@ -86,7 +73,6 @@ public class JobOffer extends AppCompatActivity {
         queri.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot DS) {
-                // UserP userp = new UserP();
                 for (DataSnapshot data: DS.getChildren()) {
                     UserP userP = data.getValue(UserP.class);
                     makom=userP.getpaddress();
@@ -101,52 +87,33 @@ public class JobOffer extends AppCompatActivity {
 
     }
 
+    /*
+    this method checks that all the fields are filled with data, and creats a new user id for the parent's job offer
+     */
     public void submit(View view) {
         description=tvDescription.getText().toString();
         if (tvDate.getText().toString().equals("") || tvTime.getText().toString().equals("") || tvDescription.getText().toString().equals("")) {
             Toast.makeText(JobOffer.this, "All Fields Must Be Filled", Toast.LENGTH_SHORT).show();
         } else {
-           /* mPDAuth = FirebaseAuth.getInstance();
-            FirebaseUser user = mPDAuth.getCurrentUser();
-            if(user != null)
-                uidp = user.getUid();
-
-
-            OfferJob JO = new OfferJob(date, time, description, uidp);
-            refJobOffer.child(uidp).setValue(JO);*/
             DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference("JobOffer");
             final String JPid= mDatabase.push().getKey();
 
-
-
-
             FirebaseUser userOff = refAuth.getCurrentUser();
             uidp = userOff.getUid();
-            //makom= refUsersP.child(uidp).child("paddress").getParent().toString();
 
-
-           // propose pr= new propose("",0);
-
-           // ArrayList<propose> ap= new ArrayList<propose>();
-
-            //ap.add(pr);
-
-            offJob = new OfferJob(date, time, description, uidp, makom,null);
+            offJob = new OfferJob(date, time, description, uidp, makom, JPid,null);
             refJobOffer.child(JPid).setValue(offJob);
 
             Intent si = new Intent(JobOffer.this, PfirstAct.class);
             startActivity(si);
             finish();
-
         }
     }
 
-        /*description=tvDescription.getText().toString();
-        //note=etBNote.getText().toString();
-        OfferJob JO = new OfferJob(date, time, description, note, uidJP, uidJB, payment);
-        refJobOffer.child(uidJP).setValue(JO);
-*/
 
+    /*
+    this method opens to the user an alert dialog of calendar.
+     */
         public void setDate (View view){
             android.app.AlertDialog.Builder adb = new android.app.AlertDialog.Builder(this);
             adb.setMessage(" ");
@@ -165,7 +132,6 @@ public class JobOffer extends AppCompatActivity {
                     int currentYear = Calendar.getInstance().get(Calendar.YEAR);
                     int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
                     int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-                    int currentDate = Calendar.getInstance().get(Calendar.DATE);
 
                     if (((currentYear - picker.getYear()) > 0))
                         Toast.makeText(JobOffer.this, "Date Picked is Invalid", Toast.LENGTH_LONG).show();
@@ -177,10 +143,6 @@ public class JobOffer extends AppCompatActivity {
                                 Toast.makeText(JobOffer.this, "Date Picked is Invalid", Toast.LENGTH_LONG).show();
                             else {
                                 tvDate.setText(date);
-                                //adp.notifyDataSetChanged();
-                                //refJobOffer.child(uidJP).child("date").setValue(tvDate);
-
-                                //refJobOffer.child(uidJP).child("date").setValue(date);
                             }
                         }
 
@@ -199,13 +161,15 @@ public class JobOffer extends AppCompatActivity {
             ad.show();
         }
 
+        /*
+        this method opens to the user a time picker alert dialog.
+         */
         public void setTime (View view){
             android.app.AlertDialog.Builder adb = new android.app.AlertDialog.Builder(this);
             adb.setMessage(" ");
 
             TimePicker picker = new TimePicker(this);
             picker.setEnabled(false);
-            //picker.setCalendarViewShown(false);
 
             adb.setTitle("Choose Time");
             adb.setView(picker);
@@ -217,10 +181,6 @@ public class JobOffer extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     time = "" + picker.getHour() + ":" + (picker.getMinute());
                     tvTime.setText(time);
-                    //adp.notifyDataSetChanged();
-                    //refJobOffer.child(uidJP).child("date").setValue(tvDate);
-
-                    //refJobOffer.child(uidJP).child("date").setValue(date);
                 }
             });
 
@@ -235,6 +195,9 @@ public class JobOffer extends AppCompatActivity {
             ad.show();
         }
 
+    /*
+   this method opens to the user a multiline edit text alert dialog.
+    */
         public void setDescription (View view){
             AlertDialog.Builder adDes;
             adDes = new AlertDialog.Builder(this);
@@ -253,7 +216,6 @@ public class JobOffer extends AppCompatActivity {
                         tvDescription.setText(et.getText());
                     } else
                         Toast.makeText(JobOffer.this, "description must be between 20-100 chars", Toast.LENGTH_LONG).show();
-                    //    Toast.makeText(this, "description must be under 100 char", Toast.LENGTH_SHORT).show();
                 }
             });
 

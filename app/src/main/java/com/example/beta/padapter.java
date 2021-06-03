@@ -12,16 +12,14 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class padapter extends ArrayAdapter<String> {
+public class padapter extends ArrayAdapter<OfferJob> {
     Context contextp;
-    ArrayList<String> rpTitle;
-    ArrayList<String> rpDescription;
+    ArrayList<OfferJob> rpTitle;
 
-    padapter(Context c, ArrayList<String> title, ArrayList<String> description){
+    padapter(Context c, ArrayList<OfferJob> title){
         super(c, R.layout.prow, R.id.textView1, title);
         this.contextp =c;
         this.rpTitle =title;
-        this.rpDescription =description;
     }
 
     public padapter(@NonNull Context context, int resource, int textViewResourceId) {
@@ -36,8 +34,8 @@ public class padapter extends ArrayAdapter<String> {
         TextView myTitle= prow.findViewById(R.id.textView1);
         TextView myDescription= prow.findViewById(R.id.textView2);
 
-        myTitle.setText(rpTitle.get(position));
-        myDescription.setText(rpDescription.get(position));
+        myTitle.setText(rpTitle.get(position).getDate()+"");
+        myDescription.setText(rpTitle.get(position).getTime()+"");
 
         return prow;
     }

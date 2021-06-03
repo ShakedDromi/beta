@@ -42,7 +42,7 @@ public class PRegister extends AppCompatActivity {
     Button btnP;
     UserP userPdb;
     CheckBox PcBstayconnect;
-    boolean userAlreadyExistsAsBabysitter=true;
+    boolean userAlreadyExistsAsBabysitter=false;
 
 
     @Override
@@ -50,8 +50,8 @@ public class PRegister extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_p_register);
 
-         /*
-        give each UI variable a value
+        /**
+         * this conects between the xml components and the java variable.
          */
         etPmail =(EditText)findViewById(R.id.Pmail);
         etPpass =(EditText)findViewById(R.id.Ppass);
@@ -62,27 +62,6 @@ public class PRegister extends AppCompatActivity {
         PstayConnect =false;
         Pregistered =true;
         regOption();
-
-        //  mAuth = FirebaseAuth.getInstance();
-
-
-
-        /**
-         * this method checks if this is the first run on the user's device
-         * if so, it sends the user strait to the registration activity(main activity)
-         * if not, it sends him to the location activity
-         */
-        /*if (firstRun) {
-            isUID=false;
-            onVerificationStateChanged();
-            regOption();
-        }
-        else {
-            isUID=true;
-            registered = true;
-            onVerificationStateChanged();
-            Intent si = new Intent(BRegistr.this, BDetails.class);
-            startActivity(si);        }*/
     }
 
 
@@ -170,10 +149,6 @@ public class PRegister extends AppCompatActivity {
         if(PMail.isEmpty()||PPass.isEmpty())
             Toast.makeText(this, "please fill all the necessary fileds", Toast.LENGTH_SHORT).show();
         else{
-          /*  if((!PMail.contains("@")||!PMail.endsWith(".il"))&&(!PMail.endsWith(".com")||!PMail.contains("@"))){
-                etPmail.setError("Mail is Invalid!");
-            }*/
-            // Check if email id is valid or not
             if (!isEmailValid(PMail))
                 etPmail.setError("Mail is Invalid!");
             else {
@@ -254,21 +229,6 @@ public class PRegister extends AppCompatActivity {
                                         startActivity(si);
                                         finish();
                                     } else {
-                                          /*  refUsersB.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    for (DataSnapshot dataSnapshot: snapshot.getChildren()){
-                                                        UserB userbcheck= dataSnapshot.getValue(UserB.class);
-                                                        if (userbcheck.getMail().equals(PMail))
-                                                            Toast.makeText(PRegister.this, "User With Email Alreasy Exist!", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                }
-
-                                                @Override
-                                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                                }
-                                            });*/
                                             if (task.getException() instanceof FirebaseAuthUserCollisionException)
                                                 Toast.makeText(PRegister.this, "User With Email Alreasy Exist!", Toast.LENGTH_SHORT).show();
 
