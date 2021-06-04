@@ -135,7 +135,6 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
                             public void onDataChange(@NonNull DataSnapshot DS) {
                                 for (DataSnapshot data: DS.getChildren()) {
                                     UserP puser = data.getValue(UserP.class);
-                                        //uidp=jobOff.getUidJP();
                                     usersP.add(puser);
 
                                 }
