@@ -16,6 +16,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import static com.example.beta.FBref.refAuth;
 
+
+/**
+ * @author Shaked Dromi
+ * @version beta
+ * @since 2021
+ */
 public class MainActivity extends AppCompatActivity {
 
     boolean PstayConnect, BstayConnect;
@@ -28,23 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    /**
-     * on activity start - if the user exists & asked to  be remembered -transfer to the next activity (Main Screen)
-     */
-   /* @Override
-    protected void onnStart() {
-        super.onStart();
-        SharedPreferences settings = getSharedPreferences("PREFS_NAME", MODE_PRIVATE);
-        Boolean isChecked = settings.getBoolean("stayConnect", false);
-        Intent si = new Intent(MainActivity.this, BMain.class);
-        if ((refAuth.getCurrentUser() != null) && (isChecked)) {
-            BstayConnect = true;
-            si.putExtra("UserB", false);
-            startActivity(si);
-        }
-    }
-    */
     /**
      * on activity start - if the user exists & asked to  be remembered -transfer to the next activity (Main Screen)
      */
@@ -72,6 +61,4 @@ public class MainActivity extends AppCompatActivity {
         startActivity(si);
         finish();
     }
-
-
 }

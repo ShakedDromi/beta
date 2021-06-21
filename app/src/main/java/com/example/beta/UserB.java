@@ -10,9 +10,7 @@ public class UserB {
      * an empty builder.
      * this function is not used, but is required in order to use Firebase.
      */
-    public UserB(){
-
-    }
+    public UserB(){}
 
     /**
      * User class builder.

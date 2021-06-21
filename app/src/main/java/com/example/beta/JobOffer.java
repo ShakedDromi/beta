@@ -65,6 +65,9 @@ public class JobOffer extends AppCompatActivity {
     }
 
 
+    /**
+     * this method gets the current user's neighborhood from database.
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -87,8 +90,9 @@ public class JobOffer extends AppCompatActivity {
 
     }
 
-    /*
-    this method checks that all the fields are filled with data, and creats a new user id for the parent's job offer
+    /**
+     * this method checks that all the fields are filled with data, and creats a new user id for the parent's job offer
+     * @param view
      */
     public void submit(View view) {
         description=tvDescription.getText().toString();
@@ -111,10 +115,11 @@ public class JobOffer extends AppCompatActivity {
     }
 
 
-    /*
-    this method opens to the user an alert dialog of calendar.
+    /**
+     * this method opens to the user an alert dialog of calendar.
+     * @param view
      */
-        public void setDate (View view){
+    public void setDate (View view){
             android.app.AlertDialog.Builder adb = new android.app.AlertDialog.Builder(this);
             adb.setMessage(" ");
 
@@ -161,10 +166,11 @@ public class JobOffer extends AppCompatActivity {
             ad.show();
         }
 
-        /*
-        this method opens to the user a time picker alert dialog.
-         */
-        public void setTime (View view){
+    /**
+     * this method opens to the user a time picker alert dialog.
+     * @param view
+     */
+    public void setTime (View view){
             android.app.AlertDialog.Builder adb = new android.app.AlertDialog.Builder(this);
             adb.setMessage(" ");
 
@@ -195,8 +201,8 @@ public class JobOffer extends AppCompatActivity {
             ad.show();
         }
 
-    /*
-   this method opens to the user a multiline edit text alert dialog.
+    /**
+     * this method opens to the user a multiline edit text alert dialog.
     */
         public void setDescription (View view){
             AlertDialog.Builder adDes;

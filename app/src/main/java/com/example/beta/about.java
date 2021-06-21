@@ -32,6 +32,9 @@ public class about extends AppCompatActivity {
     }
 
 
+    /**
+     *this method checkes which user is connected
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -64,6 +67,11 @@ public class about extends AppCompatActivity {
 
 
 
+    /**
+     * this method creats the menu.
+     * @param menu
+     * @return
+     */
     public boolean onCreateOptionsMenu(Menu menu){
         if(p){
             getMenuInflater().inflate(R.menu.main, menu);

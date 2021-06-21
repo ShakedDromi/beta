@@ -242,10 +242,10 @@ public class PPersonal extends AppCompatActivity {
                     Toast.makeText(PPersonal.this, "Date Picked is Invalid", Toast.LENGTH_LONG).show();
                 else {
                     if (((currentYear - picker.getYear()) == 0)  && (currentMonth- picker.getMonth()<6))
-                        Toast.makeText(PPersonal.this, "Date Picked is Invalid", Toast.LENGTH_LONG).show();
+                        Toast.makeText(PPersonal.this, "child must be at least 6 months old", Toast.LENGTH_LONG).show();
                     else {
                         if ((currentYear - picker.getYear() == 1) && (12 + (currentMonth - 6) <= picker.getMonth()))
-                            Toast.makeText(PPersonal.this, "Date Picked is Invalid", Toast.LENGTH_LONG).show();
+                            Toast.makeText(PPersonal.this, "child must be at least 6 months old", Toast.LENGTH_LONG).show();
                         else {
                             nn=UserP.getPknum();
                             refUsersP.child(uidP).child("pknum").setValue(nn++);

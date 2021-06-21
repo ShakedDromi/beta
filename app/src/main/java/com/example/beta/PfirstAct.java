@@ -113,6 +113,12 @@ public class PfirstAct extends AppCompatActivity implements AdapterView.OnItemCl
         startActivity(si);
     }
 
+
+    /**
+     * this method creats the menu
+     * @param menu
+     * @return
+     */
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.main, menu);
         return true;

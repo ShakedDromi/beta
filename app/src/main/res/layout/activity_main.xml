@@ -74,6 +74,7 @@
             android:layout_height="match_parent"
             android:layout_weight="35"
             app:srcCompat="@drawable/sitter"
+            android:background="#0000"
             android:onClick="sitter"/>
 
         <Space
@@ -87,6 +88,7 @@
             android:layout_height="match_parent"
             android:layout_weight="35"
             app:srcCompat="@drawable/nanny"
+            android:background="#0000"
             android:onClick="parent"/>
 
         <Space

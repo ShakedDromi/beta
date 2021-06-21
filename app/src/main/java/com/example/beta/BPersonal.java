@@ -100,7 +100,6 @@ public class BPersonal extends AppCompatActivity {
     }
 
     private void updatePDUI(FirebaseUser currentUser){
-
     }
 
     /**
@@ -233,6 +232,11 @@ public class BPersonal extends AppCompatActivity {
         adk.show();
     }
 
+    /**
+     * this method creats the menu.
+     * @param menu
+     * @return
+     */
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.mainb, menu);
         return true;

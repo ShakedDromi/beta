@@ -51,9 +51,6 @@ public class BDetails extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener mDateSetListener;
     public Uri imguri;
     ImageView ivB;
-    //public static FirebaseDatabase BDFBDB = FirebaseDatabase.getInstance();
-    //public static DatabaseReference refUserB= BDFBDB.getReference("UserB");
-
     Spinner spPlacesB;
     List<String> placesB = new ArrayList<String>();
 
@@ -140,12 +137,13 @@ public class BDetails extends AppCompatActivity {
 
 
 
+    //do i need this????????????????????????????????????????????????????????????????????????????????
 
     private void updatePDUI(FirebaseUser currentUser){
     }
 
     /**
-     * when register button is pressed, check if both fields are correct.
+     * when register button is pressed, check if all fields are correct.
      * make a toast accordingly.
      * @param view
      */
@@ -199,13 +197,11 @@ public class BDetails extends AppCompatActivity {
     }
 
     /**
-     * This method import the image from the device's gallery
-     *
+     * This method imports the image from the device's gallery
      * @param requestCode
      * @param resultCode
      * @param data
      */
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

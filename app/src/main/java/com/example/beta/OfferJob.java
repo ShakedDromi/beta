@@ -18,8 +18,7 @@ public class OfferJob {
      * an empty builder.
      * this function is not used, but is required in order to use Firebase.
      */
-    public OfferJob(){
-    }
+    public OfferJob(){}
 
     /**
      * User class builder.

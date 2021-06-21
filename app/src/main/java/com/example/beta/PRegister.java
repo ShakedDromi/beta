@@ -250,6 +250,11 @@ public class PRegister extends AppCompatActivity {
         }
     }
 
+    /**
+     * this method checks if the email is valid
+     * @param email
+     * @return
+     */
     boolean isEmailValid(String email) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }

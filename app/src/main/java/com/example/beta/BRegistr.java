@@ -254,15 +254,22 @@ public class BRegistr extends AppCompatActivity {
         }
     }
 
+    /**
+     * this method checks if the email is valid
+     * @param email
+     * @return
+     */
     boolean isEmailValid(CharSequence email) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
 
+    /**
+     * when 'back' button is clicked, the user goes back to main activity.
+     */
     @Override
     public void onBackPressed() {
         Intent goBackFromBRegister= new Intent(this, MainActivity.class);
         startActivity(goBackFromBRegister);
-
     }
 }

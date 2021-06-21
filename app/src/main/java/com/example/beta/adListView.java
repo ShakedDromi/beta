@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -26,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import static com.example.beta.FBref.refJobOffer;
+import static com.example.beta.FBref.refUsersB;
 import static com.example.beta.FBref.refUsersP;
 
 public class adListView extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -33,7 +35,7 @@ public class adListView extends AppCompatActivity implements AdapterView.OnItemC
     ListView lvp;
     private FirebaseAuth mPRAuth;
 
-    private String newId;
+    private String newId, sitterid;
     ArrayList<propose> props = new ArrayList<>();
 
     //Class<? extends ArrayList> p=new ArrayList<>();
@@ -65,9 +67,6 @@ public class adListView extends AppCompatActivity implements AdapterView.OnItemC
         if (user != null)
             idP = user.getUid();
 
-
-
-
         Query refpr=refJobOffer.child(newId).child("propose");
         refpr.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -91,8 +90,17 @@ public class adListView extends AppCompatActivity implements AdapterView.OnItemC
     }
 
 
+    /**
+     * this method opens an alert dialog in which the parent has to decide if he wants to choose this babysitter or not.
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        sitterid=((adpBoff)lvp.getAdapter()).getItem(position).getbUid();
+
         AlertDialog.Builder adchoose;
         adchoose=new AlertDialog.Builder(this);
 
@@ -101,7 +109,26 @@ public class adListView extends AppCompatActivity implements AdapterView.OnItemC
         adchoose.setPositiveButton("choose", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                Query refpro=refJobOffer.child(newId).child("propose");
+                refpro.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for(DataSnapshot data : dataSnapshot.getChildren()){
+                            propose pr=data.getValue(propose.class);
+                            if(pr.getbUid().equals(sitterid)){
+                                refJobOffer.child(newId).child("propose").child(String.valueOf(position)).child("picked").setValue(true);
+                            }
+                        }
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                Intent si = new Intent(adListView.this, PfirstAct.class);
+                startActivity(si);
+                finish();
             }
         });
         adchoose.setNegativeButton("cancel", new DialogInterface.OnClickListener() {

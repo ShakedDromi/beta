@@ -49,7 +49,7 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
     int bPrice = 0, bage,x;
     String uidB, uidp, JPid;
     private FirebaseAuth mBRAuth;
-    boolean pressed = false;
+    boolean pressed = false, picked=false;
 
     ImageView priv;
     TextView tvname, tvnum, tvage, tvdes;
@@ -59,8 +59,6 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
     ArrayList<Integer> images = new ArrayList<>();
     ArrayList<UserP> usersP = new ArrayList<>();
     ArrayList<propose> proposeB = new ArrayList<>();
-   // ArrayList<OfferJob> joff = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +81,10 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
     }
 
 
+    /**
+     * when activity starts- this method fills the list view with the according data- date and time of the jobs offers
+     * it shows only the offers of the parents who are in the same neighborhood as the babysitter.
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -158,6 +160,10 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
         });
     }
 
+    /**
+     * this method downloads the user's image from firebase storage according to the image's link.
+     * @throws IOException
+     */
     public void Download() throws IOException {
         StorageReference refImages=refStor.child(uidp+".jpg");
         final File localFile;
@@ -177,6 +183,13 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
         });
     }
 
+    /**
+     * this method presents the parent's data from Firebase to the babysitter.
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         pressed=true;
@@ -210,6 +223,10 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
         });
     }
 
+    /**
+     * this method opens an alert dialog in which the babysitter needs to insert how much she charges per hour.
+     * @param view
+     */
     public void offer(View view) {
         if(pressed){
             AlertDialog.Builder adoffer;
@@ -243,11 +260,8 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
                                         propose pr = data.getValue(propose.class);
                                         proposeB.add(pr);
                                     }
-                                    // adp=new ArrayAdapter<String>(PPersonal.this,R.layout.lvklayout, kidBdayList);
-                                    //adp = new ArrayAdapter<String>(PPersonal.this, R.layout.support_simple_spinner_dropdown_item, kidBdayList);
-                                    //lvK.setAdapter(adp);
                                 }
-                                propose props = new propose(uidB, bname, bPrice, bage);
+                                propose props = new propose(uidB, bname, bPrice, bage, picked);
                                 proposeB.add(props);
                                 refJobOffer.child(JPid).child("propose").setValue(proposeB);
                             }

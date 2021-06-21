@@ -97,6 +97,11 @@ public class PDetails extends AppCompatActivity {
         });
     }
 
+    /**
+     * this method builds an alert dialog of dates. the user has to choose a birth date of his child
+     * child must be at least 6 months old.
+     * @param view
+     */
     public void AddKNum(View view) {
 
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
@@ -121,10 +126,10 @@ public class PDetails extends AppCompatActivity {
                     Toast.makeText(PDetails.this, "Date Picked is Invalid", Toast.LENGTH_LONG).show();
                 else {
                     if (((currentYear - picker.getYear()) == 0)  && (currentMonth- picker.getMonth()<6))
-                        Toast.makeText(PDetails.this, "Date Picked is Invalid", Toast.LENGTH_LONG).show();
+                        Toast.makeText(PDetails.this, "child must be at least 6 months old", Toast.LENGTH_LONG).show();
                     else {
                         if ((currentYear - picker.getYear() == 1) && (12 + (currentMonth - 6) <= picker.getMonth()))
-                            Toast.makeText(PDetails.this, "Date Picked is Invalid", Toast.LENGTH_LONG).show();
+                            Toast.makeText(PDetails.this, "child must be at least 6 months old", Toast.LENGTH_LONG).show();
                         else {x++;
                             kidsBday.add(strDate);
                             adapter.notifyDataSetChanged();
@@ -154,8 +159,6 @@ public class PDetails extends AppCompatActivity {
      * make a toast accordingly.
      * @param view
      */
-
-
     public void connectP(View view) {
         PName=etPName.getText().toString();
         PAdd=spPlaces.getSelectedItem().toString();
@@ -206,12 +209,10 @@ public class PDetails extends AppCompatActivity {
 
     /**
      * This method import the image from the device's gallery
-     *
      * @param requestCode
      * @param resultCode
      * @param data
      */
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

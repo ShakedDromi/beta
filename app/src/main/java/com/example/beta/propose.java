@@ -4,10 +4,9 @@ public class propose {
 
     private String bUid,bname;
     private int bPrice,bage;
+    private boolean picked;
 
-    public propose(){
-
-    }
+    public propose(){}
 
     /**
      * User class builder.
@@ -17,11 +16,12 @@ public class propose {
      * @param bPrice
      * @param bage
      */
-    public propose(String bUid, String bname, int bPrice, int bage){
+    public propose(String bUid, String bname, int bPrice, int bage, boolean picked){
         this.bUid=bUid;
         this.bname=bname;
         this.bPrice=bPrice;
         this.bage=bage;
+        this.picked=picked;
     }
 
     public String getbUid(){return bUid;}
@@ -35,4 +35,7 @@ public class propose {
 
     public int getBage(){return bage;}
     public void setBage(int bage){this.bage=bage;}
+
+    public boolean getPicked(){return picked;}
+    public void setPicked(boolean picked){this.picked=picked;}
 }
