@@ -33,9 +33,28 @@ public class sitteradp extends ArrayAdapter<OfferJob> {
         View sitterrow= layoutInflater.inflate(R.layout.sitterrow, parent, false);
         TextView myTitle= sitterrow.findViewById(R.id.textView1);
         TextView myDescription= sitterrow.findViewById(R.id.textView2);
+        TextView responseText= sitterrow.findViewById(R.id.textView3);
+        TextView mail= sitterrow.findViewById(R.id.textView4);
+        TextView knum= sitterrow.findViewById(R.id.textView5);
 
+
+
+        OfferJob offerJob=titl.get(position);
+
+        String res="X";
+        if(offerJob.getProposeB()!=null) {
+            if (offerJob.getProposeB().get(0).getPicked()) {
+                res = "V";
+            } else {
+                res = "X";
+            }
+        }
+        responseText.setText(res);
         myTitle.setText(titl.get(position).getDate()+"");
         myDescription.setText(titl.get(position).getTime()+"");
+        mail.setText(titl.get(position).getMail()+"");
+        knum.setText(titl.get(position).getKnum()+"");
+
 
         return sitterrow;
     }

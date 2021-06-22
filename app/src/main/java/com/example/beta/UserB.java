@@ -6,6 +6,7 @@ package com.example.beta;
  */
 public class UserB {
     private String name, pass, mail, address, description, birthDate, Buid;
+    private int age;
     /**
      * an empty builder.
      * this function is not used, but is required in order to use Firebase.
@@ -22,8 +23,9 @@ public class UserB {
      * @param address
      * @param uid
      * @param birthDate
+     * @param age
      */
-    public UserB(String name, String mail, String birthDate, String address, String description, String uid, String pass){
+    public UserB(String name, String mail, String birthDate, String address, String description, String uid, String pass, int age){
         this.name=name;
         this.pass=pass;
         this.mail=mail;
@@ -31,6 +33,7 @@ public class UserB {
         this.description=description;
         this.birthDate=birthDate;
         this.Buid=uid;
+        this.age=age;
     }
 
     public String getName(){return name;}
@@ -53,6 +56,9 @@ public class UserB {
 
     public String getUid(){return Buid;}
     public void setUid(String uid){this.Buid=uid;}
+
+    public int getAge(){return age;}
+    public void setAge(int age){this.age=age;}
 
 }
 

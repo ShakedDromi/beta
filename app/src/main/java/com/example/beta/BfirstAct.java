@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,8 +31,8 @@ public class BfirstAct extends AppCompatActivity implements AdapterView.OnItemCl
     private FirebaseAuth mBRAuth;
     String uidB;
 
-    int x=0;
-    boolean b=false;
+    int x = 0;
+    boolean b = false;
 
 
     @Override
@@ -50,6 +51,9 @@ public class BfirstAct extends AppCompatActivity implements AdapterView.OnItemCl
     /**
      * when activity opens, present to the user the list of her upcoming jobs.
      */
+
+    sitteradp sadp;
+
     @Override
     public void onStart() {
         super.onStart();
@@ -58,25 +62,40 @@ public class BfirstAct extends AppCompatActivity implements AdapterView.OnItemCl
         if (user != null)
             uidB = user.getUid();
 
+
+        sadp = new sitteradp(BfirstAct.this, offerss);
+        lv2.setAdapter(sadp);
+
         Query query = refJobOffer.orderByKey();
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dS) {
                 offerss.clear();
-                for (DataSnapshot dataa: dS.getChildren()) {
+                for (DataSnapshot dataa : dS.getChildren()) {
                     OfferJob jobOff = dataa.getValue(OfferJob.class);
 
-                    Query qy=refJobOffer.child(dataa.getKey()).child("propose").child(uidB);
+                    Query qy = refJobOffer.child(dataa.getKey()).child("propose")/*.child(uidB)*/;
                     qy.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for (DataSnapshot data: snapshot.getChildren()){
-                                propose pp=data.getValue(propose.class);
-                                if ((pp.getPicked()==true)){
-                                    offerss.add(jobOff);
-
+                            int index = 0;
+                            for (DataSnapshot data : snapshot.getChildren()) {
+                                propose pp = data.getValue(propose.class);
+                                if (pp.getbUid().equals(uidB)) {
+                                    ArrayList<propose > proposes=new ArrayList<>();
+                                    proposes.add(pp);
+                                    jobOff.setProposeB(proposes);
+                                     offerss.add(jobOff);
+                                    sadp.notifyDataSetChanged();
                                 }
+
+                                if (pp.getbUid().equals(uidB) && !pp.getPicked()) {
+                                    listenerMaybeParenPickedMe(dataa.getKey(), index);
+                                }
+                                index++;
+
                             }
+
                         }
 
                         @Override
@@ -86,15 +105,44 @@ public class BfirstAct extends AppCompatActivity implements AdapterView.OnItemCl
                     });
                 }
 
-                sitteradp sadp = new sitteradp(BfirstAct.this, offerss);
-                lv2.setAdapter(sadp);
-                sadp.notifyDataSetChanged();
+
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
 
+    }
+
+    private void listenerMaybeParenPickedMe(String key, int index) {
+        Query qy = refJobOffer.child(key).child("propose").child(String.valueOf(index));
+        qy.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                propose pp = snapshot.getValue(propose.class);
+                if (pp.getbUid().equals(uidB) && pp.getPicked()) {
+
+                    for (int i = 0; i < offerss.size(); i++) {
+                        if (offerss.get(i).getNewId().equals(key)){
+                            offerss.get(i).getProposeB().get(0).setPicked(true);
+                            sadp.notifyDataSetChanged();
+                        }
+                    }
+
+
+
+                    Toast.makeText(BfirstAct.this, "Picked!!", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     public void search(View view) {
@@ -110,17 +158,18 @@ public class BfirstAct extends AppCompatActivity implements AdapterView.OnItemCl
     }
 
 
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.mainb, menu);
         return true;
     }
 
     /**
      * this function gets the user's choice from the menu and sends him to the appropriate activity
+     *
      * @param item
      * @return
      */
-    public boolean onOptionsItemSelected (MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
         String st = item.getTitle().toString();
         if (st.equals("about")) {
             Intent si = new Intent(BfirstAct.this, about.class);

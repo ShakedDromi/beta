@@ -101,9 +101,7 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
                         userB = data.getValue(UserB.class);
                         stplace=userB.getAddress();
                         bname=userB.getName();
-                        x=userB.getBirthDate().lastIndexOf('/');
-                        String year=userB.getBirthDate().substring(x,userB.getBirthDate().length()-1);
-                        bage= Calendar.getInstance().get(Calendar.YEAR)-(year.indexOf(0)*1000+year.indexOf(1)*100+year.indexOf(2)*10+year.indexOf(3));
+                        bage=userB.getAge();
                     }
                 }
 
@@ -252,7 +250,9 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
 
                         DatabaseReference refOfferJob = refJobOffer.child(JPid).child("propose");
                         //Query queri = refJobOffer.orderByKey().equalTo(JPid);
-                        refOfferJob.addListenerForSingleValueEvent(new ValueEventListener() {
+
+
+                         refOfferJob.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot ds) {
                                 if (ds.exists()) {
@@ -263,7 +263,9 @@ public class BMain extends AppCompatActivity implements AdapterView.OnItemClickL
                                 }
                                 propose props = new propose(uidB, bname, bPrice, bage, picked);
                                 proposeB.add(props);
+
                                 refJobOffer.child(JPid).child("propose").setValue(proposeB);
+
                             }
 
                             @Override

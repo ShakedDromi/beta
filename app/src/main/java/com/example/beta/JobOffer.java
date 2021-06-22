@@ -43,8 +43,9 @@ import static com.example.beta.FBref.refUsersP;
 
 public class JobOffer extends AppCompatActivity {
 
-    String date = "", time = "", description = "", makom;
+    String date = "", time = "", description = "", makom, mail="";
     String uidp;
+    int knum;
 
     OfferJob offJob;
 
@@ -79,6 +80,8 @@ public class JobOffer extends AppCompatActivity {
                 for (DataSnapshot data: DS.getChildren()) {
                     UserP userP = data.getValue(UserP.class);
                     makom=userP.getpaddress();
+                    mail=userP.getpmail();
+                    knum=userP.getPknum();
                 }
             }
 
@@ -105,7 +108,8 @@ public class JobOffer extends AppCompatActivity {
             FirebaseUser userOff = refAuth.getCurrentUser();
             uidp = userOff.getUid();
 
-            offJob = new OfferJob(date, time, description, uidp, makom, JPid,null);
+
+            offJob = new OfferJob(date, time, description, uidp, makom, JPid, mail, knum,null);
             refJobOffer.child(JPid).setValue(offJob);
 
             Intent si = new Intent(JobOffer.this, PfirstAct.class);

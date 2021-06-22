@@ -226,7 +226,7 @@ public class BRegistr extends AppCompatActivity {
                                             Log.d("BRegistr", "createUserWithEmail:success");
                                             FirebaseUser UserB = refAuth.getCurrentUser();
                                             Buid = UserB.getUid();
-                                            userBdb = new UserB("", BMail, "", "", "", Buid, BPass);
+                                            userBdb = new UserB("", BMail, "", "", "", Buid, BPass,0);
                                             refUsersB.child(Buid).setValue(userBdb);
                                             Toast.makeText(BRegistr.this, "Successful Registration", Toast.LENGTH_SHORT).show();
                                             Intent si = new Intent(BRegistr.this, BDetails.class);

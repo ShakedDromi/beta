@@ -52,6 +52,7 @@ public class BDetails extends AppCompatActivity {
     public Uri imguri;
     ImageView ivB;
     Spinner spPlacesB;
+    int age=0;
     List<String> placesB = new ArrayList<String>();
 
     @Override
@@ -101,8 +102,10 @@ public class BDetails extends AppCompatActivity {
                 date = dayOfMonth +"/" + month +"/" +year;
 
                 int currentYear=Calendar.getInstance().get(Calendar.YEAR);
-                if ((currentYear-year)>=13)
+                if ((currentYear-year)>=13) {
                     tvBDate.setText(date);
+                    age=currentYear-year;
+                }
 
                 else
                     Toast.makeText(BDetails.this, "The Minimal Age For Using This App Is 13", Toast.LENGTH_SHORT).show();
@@ -181,6 +184,7 @@ public class BDetails extends AppCompatActivity {
             refUsersB.child(Buid).child("name").setValue(BName);
             refUsersB.child(Buid).child("address").setValue(BAdd);
             refUsersB.child(Buid).child("birthDate").setValue(date);
+            refUsersB.child(Buid).child("age").setValue(age);
             refUsersB.child(Buid).child("description").setValue(BDes);
             // Sign in success, update UI with the signed-in user's information
             //   Log.d(TAG, "createUserWithEmail:success");
